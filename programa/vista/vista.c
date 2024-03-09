@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+    char* nombre;
+    int x,y;
+    char* descripcion;
+}Region;
+
 /**
  * Esta funcion limpia el buffer después de una lectura.
 */
@@ -16,7 +22,7 @@ void LimpiarBuffer() {
 */
 int LeerEntero(){
     int entrada;
-    int resultado = scanf("%d", entrada);
+    int resultado = scanf("%d", &entrada);
     LimpiarBuffer();
     if (resultado < 0){
         return -1;
