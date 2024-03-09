@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    char* nombre;
-    int x,y;
-    char* descripcion;
-}Region;
-
 /**
  * Esta funcion limpia el buffer después de una lectura.
 */
