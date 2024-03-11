@@ -1,4 +1,4 @@
-#include "vista.c"
+#include "vista/vista.c"
 
 int main(){
     EjecutarMenuPrincipal();
