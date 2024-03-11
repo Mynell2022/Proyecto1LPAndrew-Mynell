@@ -41,12 +41,21 @@ int VerificarExistenciaRegion(Region *region){
  * @param nombre El nombre de la región a eliminar.
 */
 int EliminarRegion(char* nombre){
-    int encontrado=0;
-    for(int i=0;i<tamanoRegion;i++){
-        if(regiones[i].nombre==nombre){encontrado=1;}
-        if(encontrado){regiones[i]=regiones[i+1]; break;}
-    }return encontrado;
-}
+    cJSON *json = ExtraerJSONRegiones();
+    int tamano = cJSON_GetArraySize(json);
+    for(int indice = 0; indice < tamano; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *nombreObjeto = cJSON_GetObjectItem(item, "nombre");
+        char *nombreGuardado = cJSON_GetStringValue(nombreObjeto);
+        if(strcmp(nombreGuardado, nombre)){
+            cJSON_DeleteItemFromArray(json, indice);
+            GuardarJSONRegion(json);
+            CargarRegiones();
+            return 1;
+        }
+    }
+    return 0;
+    }
 
 /**
  * Muestra todas las regiones.
@@ -130,7 +139,8 @@ cJSON* ExtraerJSONRegiones(){
 void CargarRegiones(){
     cJSON *json = ExtraerJSONRegiones();
     int tamano = cJSON_GetArraySize(json);
-    regiones = realloc(regiones, (tamano + 1000) * sizeof(Region));
+    regiones = malloc((tamano + 1000) * sizeof(Region));
+    tamanoRegion = 0;
     for(int indice = 0; indice < tamano; indice++){
         cJSON *item = cJSON_GetArrayItem(json, indice);
         char *nombre = cJSON_GetStringValue(cJSON_GetObjectItem(item, "nombre"));
