@@ -8,7 +8,7 @@
 #include "../gestion/datosclimaticos.c"
 
 /**
- * Esta funcion limpia el buffer después de una lectura.
+ * Esta funcion limpia el buffer despues de una lectura.
 */
 void LimpiarBuffer() {
     int c;
@@ -26,9 +26,9 @@ float LeerFlotante(){
 }
 
 /**
- * Esta función lee numeros enteros desde el teclado.
+ * Esta funcion lee numeros enteros desde el teclado.
  * 
- * @returns El número ingresado desde el teclado, en caso de falla devuelve -1.
+ * @returns El numero ingresado desde el teclado, en caso de falla devuelve -1.
 */
 int LeerEntero(){
     int entrada;
@@ -41,7 +41,7 @@ int LeerEntero(){
 }
 
 /**
- * Esta función lee la cadena de caracteres ingresados desde el teclado.
+ * Esta funcion lee la cadena de caracteres ingresados desde el teclado.
  * 
  * @returns La cadena de caracteres ingresado desde el teclado, si hay un error devuelve null.
 */
@@ -55,19 +55,19 @@ char *LeerString(){
 }
 
 /**
- * Solicita la información para enviar a realizar el análisis de correlación
+ * Solicita la informacion para enviar a realizar el analisis de correlacion
 */
 void SolicitarDatosAnalisisCorrelacion(){
-    printf("Ingrese la región: ");
+    printf("Ingrese la region: ");
     char *region = LeerString();
     printf("Ingrese el dato uno a analizar: ");
     char *datoUno = LeerString();
     printf("Ingrese el dato dos a analizar: ");
     char *datoDos = LeerString();
-    printf("Ingrese el día de la fecha inicial: ");
+    printf("Ingrese el dia de la fecha inicial: ");
     int diaInicial = LeerEntero();
     if(diaInicial < 1 || diaInicial > 31){
-        printf("\nEl día de la fecha debe estar entre 1 y 31\n\n");
+        printf("\nEl dia de la fecha debe estar entre 1 y 31\n\n");
         return;
     }
     printf("Ingrese el mes de la fecha inicial: ");
@@ -82,10 +82,10 @@ void SolicitarDatosAnalisisCorrelacion(){
         printf("\nEl  año inicial debe estar entre 1900 y 3000");
         return;
     }
-    printf("Ingrese el día de la fecha final: ");
+    printf("Ingrese el dia de la fecha final: ");
     int diaFinal = LeerEntero();
     if(diaFinal < 1 || diaFinal > 31){
-        printf("\nEl día de la fecha debe estar entre 1 y 31\n\n");
+        printf("\nEl dia de la fecha debe estar entre 1 y 31\n\n");
         return;
     }
     printf("Ingrese el mes de la fecha final: ");
@@ -112,15 +112,15 @@ void SolicitarDatosAnalisisCorrelacion(){
 }
 
 /**
- * Este método ejecuta el menú para enviar a hacer un análisis de datos.
+ * Este metodo ejecuta el menu para enviar a hacer un analisis de datos.
 */
 void EjecutarMenuAnalisisDatos(){
-    printf("Ingrese la región: ");
+    printf("Ingrese la region: ");
     char *region = LeerString();
-    printf("Ingrese el día de la fecha inicial: ");
+    printf("Ingrese el dia de la fecha inicial: ");
     int diaInicial = LeerEntero();
     if(diaInicial < 1 || diaInicial > 31){
-        printf("\nEl día de la fecha debe estar entre 1 y 31\n\n");
+        printf("\nEl dia de la fecha debe estar entre 1 y 31\n\n");
         return;
     }
     printf("Ingrese el mes de la fecha inicial: ");
@@ -135,10 +135,10 @@ void EjecutarMenuAnalisisDatos(){
         printf("\nEl  año inicial debe estar entre 1900 y 3000");
         return;
     }
-    printf("Ingrese el día de la fecha final: ");
+    printf("Ingrese el dia de la fecha final: ");
     int diaFinal = LeerEntero();
     if(diaFinal < 1 || diaFinal > 31){
-        printf("\nEl día de la fecha debe estar entre 1 y 31\n\n");
+        printf("\nEl dia de la fecha debe estar entre 1 y 31\n\n");
         return;
     }
     printf("Ingrese el mes de la fecha final: ");
@@ -166,16 +166,16 @@ void EjecutarMenuAnalisisDatos(){
 }
 
 /**
- * Imprime el menú de procesamiento de datos.
+ * Imprime el menu de procesamiento de datos.
 */
 void ImprimirMenuProcesamientoDatos(){
     printf("****Menu procesamiento de datos****\n\t1. Completar datos faltantes");
-    printf("\n\t2. Eliminar datos duplicados\n\t3. Eliminar valores atípicos");
+    printf("\n\t2. Eliminar datos duplicados\n\t3. Eliminar valores atipicos");
     printf("\nEscriba una opcion");
 }
 
 /**
- * Ejecuta el menú de procesamiento de datos.
+ * Ejecuta el menu de procesamiento de datos.
 */
 void EjecutarMenuProcesamientoDatos(){
     ImprimirMenuProcesamientoDatos();
@@ -189,13 +189,13 @@ void EjecutarMenuProcesamientoDatos(){
     case 3:
         break;
     default:
-        printf("\n***Opción incorrecta***\n\n");
+        printf("\n***Opcion incorrecta***\n\n");
         break;
     }
 }
 
 /**
- * Esta función solicita la url del archivo csv y envia a cargar los datos.
+ * Esta funcion solicita la url del archivo csv y envia a cargar los datos.
 */
 void EjecutarMenuGestionClima(){
     printf("Ingrese la url del archivo: ");
@@ -204,14 +204,14 @@ void EjecutarMenuGestionClima(){
 }
 
 /**
- * Imprime el menú que se encarga de gestión de regiones.
+ * Imprime el menu que se encarga de gestion de regiones.
 */
 void ImprimirMenuGestionRegion(){
-    printf("\n****Menu Gestión de Regiones****\n\t1. Crear región\n\t2. Eliminar región\n\t3. Mostrar regiones\nElija una opción: ");
+    printf("\n****Menu Gestion de Regiones****\n\t1. Crear region\n\t2. Eliminar region\n\t3. Mostrar regiones\nElija una opcion: ");
 }
 
 /**
- * Solicita los datos que se utilizan para crear la región.
+ * Solicita los datos que se utilizan para crear la region.
 */
 void SolicitarDatosRegion(){
     printf("\n****Creando region****\nIngrese el nombre de la region: ");
@@ -220,30 +220,30 @@ void SolicitarDatosRegion(){
         printf("\n***No se permiten nombres en blanco***\n\n");
         return;
     }
-    printf("Ingrese la descripcion de la región: ");
+    printf("Ingrese la descripcion de la region: ");
     char *descripcion = LeerString();
     if (strlen(descripcion) == 0){
         printf("\n***No se permiten nombres en blanco***\n\n");
         return;
     }
-    printf("Ingrese la coordenada X de la región: ");
+    printf("Ingrese la coordenada X de la region: ");
     float x = LeerFlotante();
     if(x == -1){
-        printf("\n***El número no es válido***\n\n");
+        printf("\n***El numero no es valido***\n\n");
         return;
     }
-    printf("Ingrese la coordenada y de la región: ");
+    printf("Ingrese la coordenada y de la region: ");
     float y = LeerFlotante();
     if(y == -1){
-        printf("\n***El número no es válido***\n\n");
+        printf("\n***El numero no es valido***\n\n");
         return;
     }
     int resultado = CrearRegion(nombre, x, y, descripcion);
     if(resultado){
-        printf("\nSe ha agregado la región\n\n");
+        printf("\nSe ha agregado la region\n\n");
     }
     else{
-        printf("\nLa región ya existe.\nEl nombre o las coordenadas están repetidas.\n\n");
+        printf("\nLa region ya existe.\nEl nombre o las coordenadas estan repetidas.\n\n");
     }
 }
 
@@ -256,15 +256,15 @@ void SolicitarDatosEliminarRegion(){
     }
     int resultado = EliminarRegion(nombre);
     if(resultado){
-        printf("\nSe ha eliminado la región.\n\n");
+        printf("\nSe ha eliminado la region.\n\n");
     }
     else{
-        printf("\nNo se encontró la región\n\n");
+        printf("\nNo se encontro la region\n\n");
     }
 }
 
 /**
- * Ejecuta el menú que se encarga de gestión de regiones.
+ * Ejecuta el menu que se encarga de gestion de regiones.
 */
 void EjecutarMenuGestionRegion(){
     ImprimirMenuGestionRegion();
@@ -281,26 +281,26 @@ void EjecutarMenuGestionRegion(){
         printf("%s", MostrarRegiones());
         break;
     default:
-        printf("%s", "\n***Opción incorrecta***\n\n");
+        printf("%s", "\n***Opcion incorrecta***\n\n");
         break;
     }
 }
 
 /**
- * Esta función imprime las opciones del menú principal.
+ * Esta funcion imprime las opciones del menu principal.
 */
 void ImprimirMenuPrincipal(){
-    printf("*****Menú Principal*****\n\t1. Gestión de regiones\n\t2. Gestión de datos climáticos\n\t3. Procesamiento de datos");
-    printf("\n\t4. Análisis de datos\n\t5. Análisis de correlación\n\t6. Visualización de datos\n\t7. Búsqueda de datos");
-    printf("\n\t8. Estadísticas\n\t9. Salir\nEscriba una opción: ");
+    printf("*****Menu Principal*****\n\t1. Gestion de regiones\n\t2. Gestion de datos climaticos\n\t3. Procesamiento de datos");
+    printf("\n\t4. Analisis de datos\n\t5. Analisis de correlacion\n\t6. Visualizacion de datos\n\t7. Busqueda de datos");
+    printf("\n\t8. Estadisticas\n\t9. Salir\nEscriba una opcion: ");
 }
 
 /**
- * Ejecuta el menú principal de la aplicacion.
+ * Ejecuta el menu principal de la aplicacion.
 */
 void EjecutarMenuPrincipal(){
     CargarRegiones();
-    CargarDatosClimatológicos();
+    CargarDatosClimatologicos();
     int salir = 0;
     do{
         ImprimirMenuPrincipal();
@@ -329,7 +329,7 @@ void EjecutarMenuPrincipal(){
             salir = 1;
             break;
         default:
-            printf("\n**Opción incorrecta. Intente de nuevo**\n\n");
+            printf("\n**Opcion incorrecta. Intente de nuevo**\n\n");
             break;
         }
     } while (!salir);

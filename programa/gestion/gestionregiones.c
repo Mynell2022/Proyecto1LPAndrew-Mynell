@@ -3,12 +3,12 @@
 #include "../cJSON/cJSON.c"
 
 /**
- * Esta función agrega una nueva región al programa.
+ * Esta funcion agrega una nueva region al programa.
  * 
- * @param nombre El nombre dela región.
- * @param coordX La coordenada X de la región.
- * @param coordY La coordenada Y de la región.
- * @param descripcion La descripción de la región.
+ * @param nombre El nombre dela region.
+ * @param coordX La coordenada X de la region.
+ * @param coordY La coordenada Y de la region.
+ * @param descripcion La descripcion de la region.
 */
 int CrearRegion(char* nombre, float coordX, float coordY, char* descripcion){
     Region region = {nombre, coordX, coordY, descripcion};
@@ -22,23 +22,23 @@ int CrearRegion(char* nombre, float coordX, float coordY, char* descripcion){
 }
 
 /**
- * Verifica que una región exista.
+ * Verifica que una region exista.
  * 
- * @param region La región que se quiere verificar.
+ * @param region La region que se quiere verificar.
 */
 int VerificarExistenciaRegion(Region *region){
     for(int i=0;i<tamanoRegion;i++){
         if (strcmp(regiones[i].nombre, region->nombre) == 0
-            || (regiones[i].x==region->x
+            && (regiones[i].x==region->x
             && regiones[i].y==region->y))
             return 1;
     }return 0;
 }
 
 /**
- * Elimina una región.
+ * Elimina una region.
  * 
- * @param nombre El nombre de la región a eliminar.
+ * @param nombre El nombre de la region a eliminar.
 */
 int EliminarRegion(char* nombre){
     cJSON *json = ExtraerJSONRegiones();
@@ -80,7 +80,7 @@ char* MostrarRegiones(){
         strcat(datos,aux);
         strcat(datos,")\nDescripcion:\n");
         strcat(datos,regiones[i].descripcion);
-        strcat(datos,"\n ~+~\n");
+        strcat(datos,"\n ~+~\n\n");
     }return datos;
 }
 
@@ -101,7 +101,7 @@ void GuardarJSONRegion(cJSON *json){
 /**
  * Actualiza las regiones que contiene el JSON.
  * 
- * @param region La región que se insertará al JSON
+ * @param region La region que se insertara al JSON
 */
 void ActualizarJSONRegiones(Region* region){
     cJSON *arregloJSON = ExtraerJSONRegiones();

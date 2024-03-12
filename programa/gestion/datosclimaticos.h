@@ -12,9 +12,9 @@ cJSON *AgregarElemento(char* linea);
 char *IncluirLote(char* url);
 cJSON *ExtraerDatosClimatologicosJSON();
 void CargarHaciaJSON(cJSON *json);
-void CargarDatosClimatológicos();
+void CargarDatosClimatologicos();
 time_t TransformarFecha(cJSON *fechaHora);
 void ExtraerDatosArregloJSON(cJSON *item, int indice);
-void CargarDatosClimatológicos();
+void CargarDatosClimatologicos();
 
 #endif

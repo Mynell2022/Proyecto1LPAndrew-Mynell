@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 /**
- * Este método agrega la fecha guardada en el csv en un objeto JSON
+ * Este metodo agrega la fecha guardada en el csv en un objeto JSON
  * 
  * @param fecha La fecha guardada en el csv.
  * @param hora La hora guardada en el csv.
@@ -22,10 +22,10 @@ cJSON *AgregarFecha(char *fecha, char *hora){
 }
 
 /**
- * Este método convierte una línea del csv en un objeto JSON.
+ * Este metodo convierte una linea del csv en un objeto JSON.
  * 
- * @param linea La línea del csv.
- * @returns El objeto JSON con la información de lote.
+ * @param linea La linea del csv.
+ * @returns El objeto JSON con la informacion de lote.
 */
 cJSON *AgregarElemento(char* linea){
     cJSON *clima = cJSON_CreateObject();
@@ -44,9 +44,9 @@ cJSON *AgregarElemento(char* linea){
 }
 
 /**
- * Este método incluye un lote según el url proporcionado por el usuario.
+ * Este metodo incluye un lote segun el url proporcionado por el usuario.
  * 
- * @param url La dirección del archivo csv. Lo ideal es que se encuentre en
+ * @param url La direccion del archivo csv. Lo ideal es que se encuentre en
  * misma carpata del programa.
  * @returns Devuelve la cantidad de elementos agregados. Devuelve un mensaje
  * de error si el archivo no existe.
@@ -59,29 +59,30 @@ char *IncluirLote(char *url){
     char *token;
     fp = fopen(url,"r");
     if(fp == NULL){
+        fclose(fp);
         return "\nEl archivo no existe\n\n";
     }
     int datosIngresados = 0;
-    while (feof(fp) != true){
-        fgets(row, MAXCHAR, fp);
+    while (fgets(row, MAXCHAR, fp) != NULL){
         cJSON_AddItemToArray(arregloJSON, AgregarElemento(row));
         datosIngresados++;
         idActual++;
     }
     CargarHaciaJSON(arregloJSON);
-    CargarDatosClimatológicos();
+    CargarDatosClimatologicos();
     char *mensaje = malloc(70 * sizeof(char));
     strcat(mensaje, "Lotes agregados: ");
     char buffer[20];
     sprintf(buffer, "%d", datosIngresados);
     strcat(mensaje, buffer);
+    fclose(fp);
     return mensaje;
 }
 
 /**
  * Extrae el JSON que se encuentra almacenado en el archivo datosclimatologicos.json
  * 
- * @returns El objeto JSON extraído.
+ * @returns El objeto JSON extraido.
 */
 cJSON *ExtraerDatosClimatologicosJSON(){
     FILE *file = fopen("./gestion/datosclimatologicos.json", "r");
@@ -137,7 +138,7 @@ time_t TransformarFecha(cJSON *fechaHora){
 /**
  * Extrae los datos del lote del item del lote.
  * 
- * @param item El objeto JSON que contiene la información del lote.
+ * @param item El objeto JSON que contiene la informacion del lote.
  * @param indice El indice del arreglo de climas en el que se debe guardar el lote actual.
 */
 void ExtraerDatosArregloJSON(cJSON *item, int indice){
@@ -155,10 +156,10 @@ void ExtraerDatosArregloJSON(cJSON *item, int indice){
 }
 
 /**
- * Este método carga los datos climatológicos guardados en el archivo JSON
+ * Este metodo carga los datos climatologicos guardados en el archivo JSON
  * hacia la memoria del programa.
 */
-void CargarDatosClimatológicos(){
+void CargarDatosClimatologicos(){
     cJSON *arregloJSON = ExtraerDatosClimatologicosJSON();
     int tamano = cJSON_GetArraySize(arregloJSON);
     climas = malloc((tamano + 1000) * sizeof(Clima));

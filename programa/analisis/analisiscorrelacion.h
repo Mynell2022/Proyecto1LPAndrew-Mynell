@@ -1,5 +1,6 @@
 #include <time.h>
 #include <cjson/cJSON.h>
+#include "../structs/region.h"
 
 char* AnalizarCorrelacion(Region region, char* datoUno, char* datoDos, time_t fechaUno, time_t fechaDos);
 float CalcularCoeficienteCorrelacionPearson(float sumaMultiplicacion, float sumaPotenciaUno, float sumaPotenciaDos);
