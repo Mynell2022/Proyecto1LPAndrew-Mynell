@@ -4,6 +4,8 @@
 
 #include "../gestion/gestionregiones.h"
 #include "../gestion/gestionregiones.c"
+#include "../gestion/datosclimaticos.h"
+#include "../gestion/datosclimaticos.c"
 
 /**
  * Esta funcion limpia el buffer después de una lectura.
@@ -198,6 +200,7 @@ void EjecutarMenuProcesamientoDatos(){
 void EjecutarMenuGestionClima(){
     printf("Ingrese la url del archivo: ");
     char *url = LeerString();
+    printf("\n%s\n\n", IncluirLote(url));
 }
 
 /**
@@ -297,6 +300,7 @@ void ImprimirMenuPrincipal(){
 */
 void EjecutarMenuPrincipal(){
     CargarRegiones();
+    CargarDatosClimatológicos();
     int salir = 0;
     do{
         ImprimirMenuPrincipal();

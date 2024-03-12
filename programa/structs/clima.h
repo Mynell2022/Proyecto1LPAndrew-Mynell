@@ -1,5 +1,8 @@
 #include <time.h>
 
+#ifndef CLIMA_H
+#define CLIMA_H
+
 typedef struct{
     int ID;
     char* Region;
@@ -9,3 +12,4 @@ typedef struct{
     char* DireccionViento;
     int Precipitacion;
 }Clima;
+#endif
