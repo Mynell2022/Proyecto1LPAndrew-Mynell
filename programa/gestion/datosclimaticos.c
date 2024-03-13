@@ -22,6 +22,62 @@ cJSON *AgregarFecha(char *fecha, char *hora){
 }
 
 /**
+ * Hace un split a un char* utilizando las comas como separadores.
+ * 
+ * @param linea La linea que tiene la infomación del lote.
+*/
+char **SplitLotes(char *linea){
+    int cantidad = 1;
+    int tamano = strlen(linea);
+    for(int indice = 0; indice < tamano; indice++){
+        if(linea[indice] == ','){
+            cantidad++;
+        }
+    }
+    char **arreglo = malloc(cantidad * sizeof(char *));
+    int indiceArreglo = 1;
+    bool hayComa = false;
+    arreglo[0] = linea;
+    for(int indice = 0; indice < tamano; indice++){
+        if(hayComa){
+            if(*(linea + indice) == ','){
+                arreglo[indiceArreglo] = NULL;
+            }
+            else{
+                arreglo[indiceArreglo] = linea + indice;
+                hayComa = false;
+            }
+            indiceArreglo++;
+        }
+        if(*(linea + indice) == ',' || *(linea + indice) == '\n'){
+            *(linea + indice) = '\0';
+            hayComa = true;
+        }
+    }
+    return arreglo;
+}
+
+/**
+ * Inserta un valor al item JSON.
+ * 
+ * @param item El item JSON en el que se guarda la información.
+ * @param tipoDato El tipo de dato que se insertará en el JSON.
+ * @param llave El nombre de la llave.
+ * @param valor El valor que se guardará en el item.
+*/
+void InsertarElementoEnJSON(cJSON *item, char tipoDato, char *llave, char *valor){
+    if (valor == NULL){
+        cJSON_AddNullToObject(item, llave);
+    }
+    else if(tipoDato == 's'){
+        cJSON_AddStringToObject(item, llave, valor);
+    }
+    else{
+        cJSON_AddNumberToObject(item, llave, atof(valor));
+    }
+}
+
+/**
  * Este metodo convierte una linea del csv en un objeto JSON.
  * 
  * @param linea La linea del csv.
@@ -29,17 +85,16 @@ cJSON *AgregarFecha(char *fecha, char *hora){
 */
 cJSON *AgregarElemento(char* linea){
     cJSON *clima = cJSON_CreateObject();
+    char **splitLinea = SplitLotes(linea);
     cJSON_AddNumberToObject(clima, "ID", idActual);
-    cJSON_AddStringToObject(clima, "region", strtok(linea, ","));
-    char *fecha = strtok(NULL, ",");
-    char *hora = strtok(NULL, ",");
-    cJSON_AddStringToObject(clima, "temperatura", strtok(NULL, ","));
-    cJSON_AddStringToObject(clima, "humedad", strtok(NULL, ","));
-    cJSON_AddStringToObject(clima, "presion", strtok(NULL, ","));
-    cJSON_AddStringToObject(clima, "velocidadViento", strtok(NULL, ","));
-    cJSON_AddStringToObject(clima, "direccionViento", strtok(NULL, ","));
-    cJSON_AddStringToObject(clima, "precipitacion", strtok(NULL, "\n"));
-    cJSON_AddItemToObject(clima, "fechaHora", AgregarFecha(fecha, hora));
+    InsertarElementoEnJSON(clima, 's', "region", splitLinea[0]);
+    cJSON_AddItemToObject(clima, "fechaHora", AgregarFecha(splitLinea[1], splitLinea[2]));
+    InsertarElementoEnJSON(clima, 'i', "temperatura", splitLinea[3]);
+    InsertarElementoEnJSON(clima, 'i', "humedad", splitLinea[4]);
+    InsertarElementoEnJSON(clima, 'i', "presion", splitLinea[5]);
+    InsertarElementoEnJSON(clima, 'i', "velocidadViento", splitLinea[6]);
+    InsertarElementoEnJSON(clima, 's', "direccionViento", splitLinea[7]);
+    InsertarElementoEnJSON(clima, 'i', "precipitacion", splitLinea[8]);
     return clima;
 }
 
