@@ -6,6 +6,8 @@
 #include "../gestion/gestionregiones.c"
 #include "../gestion/datosclimaticos.h"
 #include "../gestion/datosclimaticos.c"
+#include "../procesamiento/procesamientodatos.h"
+#include "../procesamiento/procesamientodatos.c"
 
 /**
  * Esta funcion limpia el buffer despues de una lectura.
@@ -165,13 +167,22 @@ void EjecutarMenuAnalisisDatos(){
     char *dato = LeerString();
 }
 
+void EjecutarImprimirCompletarDatos(){
+    int *datos = CompletarDatosFaltantes();
+    printf("\nDatos de temperatura completados: %i", datos[0]);
+    printf("\nDatos de humedad completados: %i", datos[1]);
+    printf("\nDatos de presion completados: %i", datos[2]);
+    printf("\nDatos de velocidad del viento completados: %i", datos[3]);
+    printf("\nDatos de precipitacion completados: %i\n\n", datos[4]);
+}
+
 /**
  * Imprime el menu de procesamiento de datos.
 */
 void ImprimirMenuProcesamientoDatos(){
     printf("****Menu procesamiento de datos****\n\t1. Completar datos faltantes");
     printf("\n\t2. Eliminar datos duplicados\n\t3. Eliminar valores atipicos");
-    printf("\nEscriba una opcion");
+    printf("\nEscriba una opcion: ");
 }
 
 /**
@@ -183,6 +194,7 @@ void EjecutarMenuProcesamientoDatos(){
     switch (opcion)
     {
     case 1:
+        EjecutarImprimirCompletarDatos();
         break;
     case 2:
         break;

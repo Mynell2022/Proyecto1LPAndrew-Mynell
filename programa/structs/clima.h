@@ -8,8 +8,8 @@ typedef struct{
     char* Region;
     time_t Tiempo;
     float Temperatura,Humedad,Presion;
-    int VelocidadViento;
+    float VelocidadViento;
     char* DireccionViento;
-    int Precipitacion;
+    float Precipitacion;
 }Clima;
 #endif

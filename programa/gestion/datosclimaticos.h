@@ -3,8 +3,8 @@
 
 #ifndef DATOSCLIMATICOS_H
 #define DATOSCLIMATICOS_H
-Clima *climas = NULL;
-int tamanoClimas = 0;
+extern Clima *climas;
+extern int tamanoClimas;
 int idActual = 0;
 
 cJSON *AgregarFecha(char *fecha, char *hora);

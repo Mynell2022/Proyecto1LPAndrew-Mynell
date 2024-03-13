@@ -1,6 +1,5 @@
 #include "../gestion/gestionregiones.h"
 #include "../structs/region.h"
-#include "../cJSON/cJSON.c"
 
 /**
  * Esta funcion agrega una nueva region al programa.

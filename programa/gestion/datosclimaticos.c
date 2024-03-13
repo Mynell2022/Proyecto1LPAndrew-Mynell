@@ -1,8 +1,13 @@
-#include "./datosclimaticos.h"
+#include "datosclimaticos.h"
 #include <time.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../cJSON/cJSON.c"
+
+Clima *climas = NULL;
+int tamanoClimas = 0;
+
 
 /**
  * Este metodo agrega la fecha guardada en el csv en un objeto JSON
@@ -13,11 +18,11 @@
 */
 cJSON *AgregarFecha(char *fecha, char *hora){
     cJSON *fechaJSON = cJSON_CreateObject();
-    cJSON_AddStringToObject(fechaJSON, "anio", strtok(fecha, "-"));
-    cJSON_AddStringToObject(fechaJSON, "mes", strtok(NULL, "-"));
-    cJSON_AddStringToObject(fechaJSON, "dia", strtok(NULL, "-"));
-    cJSON_AddStringToObject(fechaJSON, "hora", strtok(hora, ":"));
-    cJSON_AddStringToObject(fechaJSON, "minuto", strtok(NULL, ":"));
+    cJSON_AddNumberToObject(fechaJSON, "anio", atoi(strtok(fecha, "-")));
+    cJSON_AddNumberToObject(fechaJSON, "mes", atoi(strtok(NULL, "-")));
+    cJSON_AddNumberToObject(fechaJSON, "dia", atoi(strtok(NULL, "-")));
+    cJSON_AddNumberToObject(fechaJSON, "hora", atoi(strtok(hora, ":")));
+    cJSON_AddNumberToObject(fechaJSON, "minuto", atoi(strtok(NULL, ":")));
     return fechaJSON;
 }
 
@@ -160,7 +165,7 @@ cJSON *ExtraerDatosClimatologicosJSON(){
  * 
  * @param json El objeto JSON a guardar.
 */
-void  CargarHaciaJSON(cJSON *json){
+void CargarHaciaJSON(cJSON *json){
     FILE *file = fopen("./gestion/datosclimatologicos.json", "w");
     char *stringJSON = cJSON_Print(json);
     fprintf(file, "%s\n", stringJSON);
@@ -182,8 +187,8 @@ time_t TransformarFecha(cJSON *fechaHora){
     cJSON *hora = cJSON_GetObjectItem(fechaHora, "hora");
     cJSON *minuto = cJSON_GetObjectItem(fechaHora, "minuto");
     struct tm fecha = {0};
-    fecha.tm_year = cJSON_GetNumberValue(anio);
-    fecha.tm_mon = cJSON_GetNumberValue(mes);
+    fecha.tm_year = cJSON_GetNumberValue(anio) - 1900;
+    fecha.tm_mon = cJSON_GetNumberValue(mes) - 1;
     fecha.tm_mday =cJSON_GetNumberValue(dia);
     fecha.tm_hour = cJSON_GetNumberValue(hora);
     fecha.tm_min = cJSON_GetNumberValue(minuto);
