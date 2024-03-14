@@ -232,6 +232,9 @@ void CargarDatosClimatologicos(){
     cJSON_Delete(arregloJSON);
 }
 
+/**
+ * Se envía la información total del clima.
+*/
 char* ToString(Clima* clima){
     char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
     texto[0]='\0';
@@ -242,7 +245,7 @@ char* ToString(Clima* clima){
     strcat(texto,"\nRegion: ");
     strcat(texto,clima->Region);
     strcat(texto,"\nTiempo: ");
-    strftime(aux,sizeof(aux),"%c", localtime(clima->Tiempo));
+    strftime(aux,sizeof(aux),"%c", localtime(&clima->Tiempo));
     strcat(texto,aux);
     strcat(texto,"\nTemperatura: ");
     sprintf(aux,"%.2f",clima->Temperatura);
@@ -254,12 +257,12 @@ char* ToString(Clima* clima){
     sprintf(aux,"%.2f",clima->Presion);
     strcat(texto,aux);
     strcat(texto,"\nVelocidad del Viento: ");
-    sprintf(aux,"%d",clima->VelocidadViento);
+    sprintf(aux,"%.2f",clima->VelocidadViento);
     strcat(texto,aux);
     strcat(texto,"\nDireccion del Viento: ");
     strcat(texto,clima->DireccionViento);
     strcat(texto,"\nPrecipitacion: ");
-    sprintf(aux,"%d",clima->Precipitacion);
+    sprintf(aux,"%.2f",clima->Precipitacion);
     strcat(texto,aux);
     strcat(texto,"\n ~+~\n\n");
     return texto;

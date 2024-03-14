@@ -167,6 +167,17 @@ void EjecutarMenuAnalisisDatos(){
     char *dato = LeerString();
 }
 
+/**
+ * Ejecuta la función eliminar datos duplicados y muestra la cantidad de datos eliminados.
+*/
+void EjecutarImprimirEliminarDuplicados(){
+    int cantidad = EliminarDatosDuplicados();
+    printf("\nCantidad de elementos duplicados eliminados: %i\n\n", cantidad);
+}
+
+/**
+ * Ejecuta el código para completar los datos faltantes e imprime la cantidad de datos completados.
+*/
 void EjecutarImprimirCompletarDatos(){
     int *datos = CompletarDatosFaltantes();
     printf("\nDatos de temperatura completados: %i", datos[0]);

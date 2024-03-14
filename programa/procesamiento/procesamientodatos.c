@@ -224,6 +224,16 @@ float ObtenerMediaPrecipitacion(){
     return media / cantidadNumeros;
 }
 
+/**
+ * Verifica si un lote ya ha sido agregado a al arreglo de lotes duplicados.
+ * 
+ * @param clima El lote que se desea verificar.
+ * @param idsRepetidos El arreglo de lotes duplicados.
+ * @param lotesRepetidos La cantidad de lotes repetidos.
+ * 
+ * @return True si lote se encuentra de los datos duplicados.
+ * False si el lote no se encuentra de los datos duplicados.
+*/
 bool VerificarSiEsDuplicado(Clima clima, int *idsRepetidos, int lotesRepetidos){
     for(int indice = 0; indice < lotesRepetidos; indice++){
         if(clima.ID == idsRepetidos[indice]){
@@ -233,6 +243,14 @@ bool VerificarSiEsDuplicado(Clima clima, int *idsRepetidos, int lotesRepetidos){
     return false;
 }
 
+/**
+ * Compara dos lotes para saber si son iguales y guardarlo dentro de los lotes duplicados.
+ * 
+ * @param lote El lote que se desea comparar.
+ * @param idsRepetidos Los ids de los lotes duplicados.
+ * @param lotesRepetidos La cantidad de lotes duplicados.
+ * @return La cantidad de datos duplicados.
+*/
 int BuscarDuplicados(Clima lote, int *idsRepetidos, int lotesRepetidos){
     int duplicados = 0;
     for(int indice = 0; indice < tamanoClimas; indice++){
@@ -254,6 +272,12 @@ int BuscarDuplicados(Clima lote, int *idsRepetidos, int lotesRepetidos){
     return duplicados;
 }
 
+/**
+ * Se elimina los lotes duplicados del archivo JSON.
+ * 
+ * @param lotesAEliminar Los ids de los lotes a eliminar.
+ * @param lotesRepetidos La cantidad de lotes duplicados.
+*/
 void EliminarRepetidosJSON(int *lotesAEliminar, int lotesRepetidos){
     cJSON *json = ExtraerDatosClimatologicosJSON();
     for(int indice = 0; indice < lotesRepetidos; indice++){
@@ -271,6 +295,9 @@ void EliminarRepetidosJSON(int *lotesAEliminar, int lotesRepetidos){
     CargarHaciaJSON(json);
 }
 
+/**
+ * Controlador para eliminar los datos duplicados.
+*/
 int EliminarDatosDuplicados(){
     int *lotesAEliminar = malloc(tamanoClimas * sizeof(int));
     int lotesRepetidos = 0;
