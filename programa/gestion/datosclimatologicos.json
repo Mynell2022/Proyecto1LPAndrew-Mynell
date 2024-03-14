@@ -95,3 +95,148 @@
 		"precipitacion":	0,
 		"velocidadViento":	67.459999084472656
 	}]
+[{
+		"ID":	1,
+		"region":	"Norte",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	7,
+			"minuto":	0
+		},
+		"temperatura":	13.5,
+		"humedad":	59.3,
+		"presion":	1010,
+		"velocidadViento":	18,
+		"direccionViento":	"W",
+		"precipitacion":	2
+	}, {
+		"ID":	2,
+		"region":	"Norte",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	8,
+			"minuto":	0
+		},
+		"temperatura":	14,
+		"humedad":	60,
+		"presion":	1011,
+		"velocidadViento":	20,
+		"direccionViento":	"NW",
+		"precipitacion":	0
+	}, {
+		"ID":	3,
+		"region":	"Norte",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	9,
+			"minuto":	0
+		},
+		"temperatura":	16,
+		"humedad":	63,
+		"presion":	1012,
+		"velocidadViento":	22,
+		"direccionViento":	"NW",
+		"precipitacion":	0
+	}, {
+		"ID":	4,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	0,
+			"minuto":	0
+		},
+		"temperatura":	20,
+		"presion":	1013,
+		"velocidadViento":	10,
+		"direccionViento":	"NE",
+		"precipitacion":	0,
+		"humedad":	72.936363220214844
+	}, {
+		"ID":	5,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	1,
+			"minuto":	0
+		},
+		"temperatura":	19,
+		"humedad":	78,
+		"velocidadViento":	12,
+		"direccionViento":	"E",
+		"precipitacion":	0,
+		"presion":	72.936363220214844
+	}, {
+		"ID":	6,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	2,
+			"minuto":	0
+		},
+		"temperatura":	19,
+		"humedad":	77,
+		"presion":	1011,
+		"direccionViento":	"SE",
+		"precipitacion":	0,
+		"velocidadViento":	72.936363220214844
+	}, {
+		"ID":	10,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	0,
+			"minuto":	0
+		},
+		"temperatura":	20,
+		"humedad":	null,
+		"presion":	1013,
+		"velocidadViento":	10,
+		"direccionViento":	"NE",
+		"precipitacion":	0
+	}, {
+		"ID":	11,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	1,
+			"minuto":	0
+		},
+		"temperatura":	19,
+		"humedad":	78,
+		"presion":	null,
+		"velocidadViento":	12,
+		"direccionViento":	"E",
+		"precipitacion":	0
+	}, {
+		"ID":	12,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	2,
+			"minuto":	0
+		},
+		"temperatura":	19,
+		"humedad":	77,
+		"presion":	1011,
+		"velocidadViento":	null,
+		"direccionViento":	"SE",
+		"precipitacion":	0
+	}]

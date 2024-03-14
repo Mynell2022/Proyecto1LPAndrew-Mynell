@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 /**
  * Esta es la función inicial que completa los datos faltantes.
@@ -221,4 +222,63 @@ float ObtenerMediaPrecipitacion(){
         }
     }
     return media / cantidadNumeros;
+}
+
+bool VerificarSiEsDuplicado(Clima clima, int *idsRepetidos, int lotesRepetidos){
+    for(int indice = 0; indice < lotesRepetidos; indice++){
+        if(clima.ID == idsRepetidos[indice]){
+            return true;
+        }
+    }
+    return false;
+}
+
+int BuscarDuplicados(Clima lote, int *idsRepetidos, int lotesRepetidos){
+    int duplicados = 0;
+    for(int indice = 0; indice < tamanoClimas; indice++){
+        Clima loteGuardado = climas[indice];
+        if(lote.ID != loteGuardado.ID
+            && strcmp(lote.Region, loteGuardado.Region) == 0
+            && lote.Tiempo == loteGuardado.Tiempo
+            && (lote.Humedad == loteGuardado.Humedad || (isnan(lote.Humedad) && isnan(loteGuardado.Humedad)))
+            && (lote.Temperatura == loteGuardado.Temperatura || (isnan(lote.Temperatura) && isnan(loteGuardado.Temperatura)))
+            && (lote.Presion == loteGuardado.Presion  || (isnan(lote.Presion) && isnan(loteGuardado.Presion)))
+            && (lote.VelocidadViento == loteGuardado.VelocidadViento || (isnan(lote.VelocidadViento) && isnan(loteGuardado.VelocidadViento)))
+            && (lote.Precipitacion == loteGuardado.Precipitacion || (isnan(lote.Precipitacion) && isnan(loteGuardado.Precipitacion)))
+            && strcmp(lote.DireccionViento, loteGuardado.DireccionViento) == 0){
+
+            idsRepetidos[lotesRepetidos + duplicados] = loteGuardado.ID;
+            duplicados++;
+        }
+    }
+    return duplicados;
+}
+
+void EliminarRepetidosJSON(int *lotesAEliminar, int lotesRepetidos){
+    cJSON *json = ExtraerDatosClimatologicosJSON();
+    for(int indice = 0; indice < lotesRepetidos; indice++){
+        int tamanoJSON = cJSON_GetArraySize(json);
+        for(int indiceJSON = 0; indiceJSON < tamanoJSON; indiceJSON++){
+            cJSON *item = cJSON_GetArrayItem(json, indiceJSON);
+            cJSON *idJSON = cJSON_GetObjectItem(item, "ID");
+            int id = cJSON_GetNumberValue(idJSON);
+            if(id == lotesAEliminar[indice]){
+                cJSON_DeleteItemFromArray(json, indiceJSON);
+                break;
+            }
+        }
+    }
+    CargarHaciaJSON(json);
+}
+
+int EliminarDatosDuplicados(){
+    int *lotesAEliminar = malloc(tamanoClimas * sizeof(int));
+    int lotesRepetidos = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        if(!VerificarSiEsDuplicado(climas[indice], lotesAEliminar, lotesRepetidos)){
+            lotesRepetidos += BuscarDuplicados(climas[indice], lotesAEliminar, lotesRepetidos);
+        }
+    }
+    EliminarRepetidosJSON(lotesAEliminar, lotesRepetidos);
+    return lotesRepetidos;
 }

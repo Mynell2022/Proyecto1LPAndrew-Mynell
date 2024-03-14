@@ -197,6 +197,7 @@ void EjecutarMenuProcesamientoDatos(){
         EjecutarImprimirCompletarDatos();
         break;
     case 2:
+        EjecutarImprimirEliminarDuplicados();
         break;
     case 3:
         break;

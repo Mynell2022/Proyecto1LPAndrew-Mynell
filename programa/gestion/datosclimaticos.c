@@ -119,7 +119,6 @@ char *IncluirLote(char *url){
     char *token;
     fp = fopen(url,"r");
     if(fp == NULL){
-        fclose(fp);
         return "\nEl archivo no existe\n\n";
     }
     int datosIngresados = 0;
@@ -211,7 +210,7 @@ void ExtraerDatosArregloJSON(cJSON *item, int indice){
     climas[indice].Humedad = cJSON_GetNumberValue(cJSON_GetObjectItem(item, "humedad"));
     climas[indice].Presion = cJSON_GetNumberValue(cJSON_GetObjectItem(item, "presion"));
     climas[indice].VelocidadViento = cJSON_GetNumberValue(cJSON_GetObjectItem(item, "velocidadViento"));
-    climas[indice].DireccionViento = cJSON_GetStringValue(cJSON_GetObjectItem(item, "direccionViento"));
+    climas[indice].DireccionViento = strdup(cJSON_GetStringValue(cJSON_GetObjectItem(item, "direccionViento")));
     climas[indice].Precipitacion = cJSON_GetNumberValue(cJSON_GetObjectItem(item, "precipitacion"));
 }
 
