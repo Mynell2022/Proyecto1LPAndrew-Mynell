@@ -16,5 +16,6 @@ void CargarDatosClimatologicos();
 time_t TransformarFecha(cJSON *fechaHora);
 void ExtraerDatosArregloJSON(cJSON *item, int indice);
 void CargarDatosClimatologicos();
+char* ToString(Clima*);
 
 #endif

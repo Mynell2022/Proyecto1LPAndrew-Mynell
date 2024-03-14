@@ -12,6 +12,7 @@ int tamanoRegion = 0;
 
 int CrearRegion(char* nombre, float coordX, float coordY, char* descripcion);
 int VerificarExistenciaRegion(Region *region);
+Region ObtenerRegion(char* nombre);
 int EliminarRegion(char* nombre);
 char* MostrarRegiones();
 void GuardarJSONRegion(cJSON *json);

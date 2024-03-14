@@ -34,9 +34,17 @@ int VerificarExistenciaRegion(Region *region){
     }return 0;
 }
 
+Region ObtenerRegion(char* nombre){
+    for(int i = 0; i < tamanoRegion; i++){
+        if(strcmp(regiones[i].nombre, nombre)){
+            return regiones[i];
+        }
+    }
+}
+
 /**
  * Elimina una region.
- * 
+ *
  * @param nombre El nombre de la region a eliminar.
 */
 int EliminarRegion(char* nombre){
@@ -54,7 +62,7 @@ int EliminarRegion(char* nombre){
         }
     }
     return 0;
-    }
+}
 
 /**
  * Muestra todas las regiones.
