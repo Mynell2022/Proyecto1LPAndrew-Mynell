@@ -4,23 +4,26 @@
 #include "../gestion/gestionregiones.h"
 #include "../gestion/datosclimaticos.h"
 
-char* BuscarPorRegionExacta(char* region){
+char* Buscar(int* lista, int* index){
     char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
     texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
-    for (int i = 0; i < tamanoClimas; i++) {
-        if(strcmp(climas[i].Region,region)==1){
-            strcat(texto,ToString(&climas[i]));
-        }
+    if(*index == 0){return "\nNo hay datos que mostrar\n\n";}
+    for (int i = 0; i < *index; i++) {
+        strcat(texto,ToString(&climas[lista[i]]));
     }return texto;
 }
 
-char* BuscarPorRegionAprox(char* region){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
+void BuscarPorRegionExacta(char* region,int* lista, int* index){
+    for (int i = 0; i < tamanoClimas; i++) {
+        if(strcmp(climas[i].Region,region)==1){
+            lista[*index++]=i;
+        }
+    }
+}
+
+void BuscarPorRegionAprox(char* region,int* lista, int* index){
     int mejorIndice=0;
     float mejorDistancia=__FLT_MAX__,distancia;
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < tamanoClimas; i++) {
         Region region1= ObtenerRegion(climas[i].Region), region2= ObtenerRegion(region);
         if(region1.nombre!=NULL&&region2.nombre!=NULL){
@@ -30,109 +33,97 @@ char* BuscarPorRegionAprox(char* region){
                 mejorIndice=i;
             }
         }
-    }strcat(texto,ToString(&climas[mejorIndice]));
-    return texto;
+    }lista[*index++]=mejorIndice;
 }
 
-char* BuscarPorTemperaturaExacta(float temperatura){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
+void BuscarPorTemperaturaExacta(float temperatura,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Temperatura==temperatura){
-            strcat(texto,ToString(&climas[i]));
+            lista[*index++]=i;
         }
-    }return texto;
+    }
 }
 
-char* BuscarPorTemperaturaAprox(float temperatura){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
+void BuscarPorTemperaturaAprox(float temperatura,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < tamanoClimas; i++) {
         cerca= fabs(climas[i].Temperatura-temperatura);
         if(cerca<mejorCerca){
             mejorCerca=cerca;
             mejorIndice=i;
         }
-    }strcat(texto,ToString(&climas[mejorIndice]));
-    return texto;
+    }lista[*index++]=mejorIndice;
 }
 
-char* BuscarPorDireccionVientoExacta(char* dViento){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
+void BuscarPorDireccionVientoExacta(char* dViento,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(strcmp(climas[i].DireccionViento,dViento)){
-            strcat(texto,ToString(&climas[i]));
+            lista[*index++]=i;
         }
-    }return texto;
+    }
 }
 
-char* BuscarPorDireccionVientoAprox(char* dViento){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
+void BuscarPorDireccionVientoAprox(char* dViento,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(strpbrk(climas[i].DireccionViento,dViento)!=NULL){
-            strcat(texto,ToString(&climas[i]));
+            lista[*index++]=i;
         }
-    }return texto;
+    }
 }
 
-char* BuscarPorPresionExacta(float presion){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
+void BuscarPorPresionExacta(float presion, int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Presion==presion){
-            strcat(texto,ToString(&climas[i]));
+            lista[*index++]=i;
         }
-    }return texto;
+    }
 }
 
-char* BuscarPorPresionAprox(float presion){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
+void BuscarPorPresionAprox(float presion,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < tamanoClimas; i++) {
         cerca= fabs(climas[i].Presion-presion);
         if(cerca<mejorCerca){
             mejorCerca=cerca;
             mejorIndice=i;
         }
-    }strcat(texto,ToString(&climas[mejorIndice]));
-    return texto;
+    }lista[*index++]=mejorIndice;
 }
 
-char* BuscarPorPrecipitacionExacta(float precipitacion){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
+void BuscarPorPrecipitacionExacta(float precipitacion,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Precipitacion==precipitacion){
-            strcat(texto,ToString(&climas[i]));
+            lista[*index++]=i;
         }
-    }return texto;
+    }
 }
 
-char* BuscarPorPrecipitacionAprox(float precipitacion){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
+void BuscarPorPrecipitacionAprox(float precipitacion,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
-    if(tamanoClimas == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < tamanoClimas; i++) {
         cerca= fabs(climas[i].Precipitacion-precipitacion);
         if(cerca<mejorCerca){
             mejorCerca=cerca;
             mejorIndice=i;
         }
-    }strcat(texto,ToString(&climas[mejorIndice]));
-    return texto;
+    }lista[*index++]=mejorIndice;
+}
+
+int* Interseccion(int* arreglo1,int* arreglo2, int* longitud1, int* longitud2) {
+    int* arregloInterseccion = NULL;
+    int longitudInterseccion = 0;
+    for (int i = 0; i < *longitud1; i++) {
+        for (int j = 0; j < *longitud2; j++) {
+            if (arreglo1[i] == arreglo2[j]) {
+                (longitudInterseccion)++;
+                arregloInterseccion = (int*)realloc(arregloInterseccion, (longitudInterseccion) * sizeof(int));
+                arregloInterseccion[(longitudInterseccion) - 1] = arreglo1[i];
+                break;
+            }
+        }
+    }*longitud1=longitudInterseccion;
+    return arregloInterseccion;
 }
