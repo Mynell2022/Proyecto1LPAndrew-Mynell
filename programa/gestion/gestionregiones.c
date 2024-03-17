@@ -39,7 +39,7 @@ Region ObtenerRegion(char* nombre){
         if(strcmp(regiones[i].nombre, nombre)){
             return regiones[i];
         }
-    }
+    }return (Region){NULL,0,0,NULL};
 }
 
 /**

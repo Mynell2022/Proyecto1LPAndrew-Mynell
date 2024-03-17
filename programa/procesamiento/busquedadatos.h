@@ -14,3 +14,4 @@ void BuscarPorPresionAprox(float,int*,int*);
 void BuscarPorPrecipitacionExacta(float,int*,int*);
 void BuscarPorPrecipitacionAprox(float,int*,int*);
 int* ProcesarBusqueda(int*,int*,int*,int*);
+int* EliminarBusquedasDuplicadas(int*, int);
