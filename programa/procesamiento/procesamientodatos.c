@@ -306,6 +306,256 @@ int EliminarDatosDuplicados(){
             lotesRepetidos += BuscarDuplicados(climas[indice], lotesAEliminar, lotesRepetidos);
         }
     }
-    EliminarRepetidosJSON(lotesAEliminar, lotesRepetidos);
+    EliminarRepetidosJSON(lotesAEliminar, lotesRepetidos);lotesAEliminar;
     return lotesRepetidos;
+}
+
+int ContarArregloFlotante(float *arreglo){
+    int cantidad = 0;
+    while(!isnan(arreglo[cantidad])){
+        cantidad++;
+    }
+    return cantidad;
+}
+
+float *OrdenarArreglos(float *arregloUno, float *arregloDos){
+    int tamanoUno = ContarArregloFlotante(arregloUno);
+    int tamanoDos = ContarArregloFlotante(arregloDos);
+    int indiceUno = 0;
+    int indiceDos = 0;
+    float *arregloFinal = malloc((tamanoUno + tamanoDos + 1) * sizeof(float));
+    for(int indice = 0; indiceUno < tamanoUno || indiceDos < tamanoDos; indice++){
+        if(indiceUno < tamanoUno && (indiceDos == tamanoDos || arregloUno[indiceUno] < arregloDos[indiceDos])){
+            arregloFinal[indice] = arregloUno[indiceUno];
+            indiceUno++;
+        }
+        else{
+            arregloFinal[indice] = arregloDos[indiceDos];
+            indiceDos++;
+        }
+    }
+    arregloFinal[tamanoUno + tamanoDos] = NAN;
+    return arregloFinal;
+}
+
+float *SacarSegundaMitad(float *arreglo){
+    int tamano = ContarArregloFlotante(arreglo);
+    int indiceMitad = tamano / 2;
+    int tamanoMitad = tamano - indiceMitad;
+    int copiaIndiceMitad = indiceMitad;
+    float *mitad = malloc((tamano + 1) * sizeof(float));;
+    int indiceArregloNuevo = 0;
+    for(int indice = 0; indice < tamano; indice++){
+        mitad[indice] = arreglo[indiceMitad];
+    }
+    arreglo[copiaIndiceMitad] = NAN;
+    mitad[tamanoMitad] = NAN;
+    return mitad;
+}
+
+float *MergeSort(float *arreglo){
+    if(ContarArregloFlotante(arreglo) == 1){
+        return arreglo;
+    }
+    float *mitadArreglo = SacarSegundaMitad(arreglo);
+    float *mitadUno = MergeSort(arreglo);
+    float *mitadDos = MergeSort(mitadArreglo);
+    float *arregloOrdenado = OrdenarArreglos(mitadUno, mitadDos);
+    return arregloOrdenado;
+}
+
+float *CrearArregloTemperatura(){
+    int tamanoArreglo;
+    float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
+    int indiceArreglo = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        float temperatura = climas[indice].Temperatura;
+        if(!isnan(temperatura)){
+            arreglo[indiceArreglo] = temperatura;
+            indiceArreglo++;
+            arreglo[indiceArreglo] = NAN;
+        }
+    }
+    arreglo = MergeSort(arreglo);
+    return arreglo;
+}
+
+float *CrearArregloHumedad(){
+    int tamanoArreglo;
+    float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
+    int indiceArreglo = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        float humedad = climas[indice].Humedad;
+        if(!isnan(humedad)){
+            arreglo[indiceArreglo] = humedad;
+            indiceArreglo++;
+            arreglo[indiceArreglo] = NAN;
+        }
+    }
+    arreglo = MergeSort(arreglo);
+    return arreglo;
+}
+
+float *CrearArregloPresion(){
+    int tamanoArreglo;
+    float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
+    int indiceArreglo = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        float presion = climas[indice].Presion;
+        if(!isnan(presion)){
+            arreglo[indiceArreglo] = presion;
+            indiceArreglo++;
+            arreglo[indiceArreglo] = NAN;
+        }
+    }
+    arreglo = MergeSort(arreglo);
+    return arreglo;
+}
+
+float *CrearArregloVelocidadTiempo(){
+    int tamanoArreglo;
+    float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
+    int indiceArreglo = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        float velocidadViento = climas[indice].VelocidadViento;
+        if(!isnan(velocidadViento)){
+            arreglo[indiceArreglo] = velocidadViento;
+            indiceArreglo++;
+            arreglo[indiceArreglo] = NAN;
+        }
+    }
+    arreglo = MergeSort(arreglo);
+    return arreglo;
+}
+
+float *CrearArregloPrecipitacion(){
+    int tamanoArreglo;
+    float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
+    int indiceArreglo = 0;
+    for (int indice = 0; indice < tamanoClimas; indice++){
+        float precipitacion = climas[indice].Precipitacion;
+        if(!isnan(precipitacion)){
+            arreglo[indiceArreglo] = precipitacion;
+            indiceArreglo++;
+            arreglo[indiceArreglo] = NAN;
+        }
+    }
+    arreglo = MergeSort(arreglo);
+    return arreglo;
+}
+
+float *CalcularRangoAtípico(float *arreglo){
+    int tamano = ContarArregloFlotante(arreglo);
+    int indiceMediana = (tamano - 1) / 2;
+    float mediana = (arreglo[indiceMediana] + arreglo[indiceMediana + 1]) / 2;
+    int indiceQ1 = (tamano - 1) * 0.25;
+    float q1 = (arreglo[indiceQ1] + arreglo[indiceQ1]) / 2;
+    int indiceQ3 = (tamano - 1) * 0.75;
+    float q3 = (arreglo[indiceQ3] + arreglo[indiceQ3 + 1]) / 2;
+    float rangoIntercuartil = (q3 - q1) * 3;
+    float *rangos = malloc(2 * sizeof(float));
+    rangos[0] = q1 - rangoIntercuartil;
+    rangos[1] = q3 + rangoIntercuartil;
+    return rangos;
+}
+
+int EliminarTemperaturaAtipica(cJSON *json){
+    float *arregloTemperatura = CrearArregloTemperatura();
+    float *rangos = CalcularRangoAtípico(arregloTemperatura);
+    int tamanoJSON =  cJSON_GetArraySize(json);
+    int contador = 0;
+    for(int indice = 0; indice < tamanoJSON; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "temperatura");
+        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
+        if(!isnan(temperatura)){
+            cJSON_DetachItemFromObject(item, "temperatura");
+            cJSON_AddNullToObject(item, "temperatura");
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int EliminarHumedadAtipica(cJSON *json){
+    float *arregloHumedad = CrearArregloHumedad();
+    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    int tamanoJSON =  cJSON_GetArraySize(json);
+    int contador = 0;
+    for(int indice = 0; indice < tamanoJSON; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "humedad");
+        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
+        if(!isnan(temperatura)){
+            cJSON_DetachItemFromObject(item, "humedad");
+            cJSON_AddNullToObject(item, "humedad");
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int EliminarPresionAtipica(cJSON *json){
+    float *arregloHumedad = CrearArregloPresion();
+    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    int tamanoJSON =  cJSON_GetArraySize(json);
+    int contador = 0;
+    for(int indice = 0; indice < tamanoJSON; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "presion");
+        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
+        if(!isnan(temperatura)){
+            cJSON_DetachItemFromObject(item, "presion");
+            cJSON_AddNullToObject(item, "presion");
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int EliminarVelocidadVientoAtipica(cJSON *json){
+    float *arregloHumedad = CrearArregloHumedad();
+    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    int tamanoJSON = cJSON_GetArraySize(json);
+    int contador = 0;
+    for(int indice = 0; indice < tamanoJSON; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "velocidadViento");
+        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
+        if(!isnan(temperatura)){
+            cJSON_DetachItemFromObject(item, "velocidadViento");
+            cJSON_AddNullToObject(item, "velocidadViento");
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int EliminarPrecipitacionAtipica(cJSON *json){
+    float *arregloHumedad = CrearArregloHumedad();
+    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    int tamanoJSON =  cJSON_GetArraySize(json);
+    int contador = 0;
+    for(int indice = 0; indice < tamanoJSON; indice++){
+        cJSON *item = cJSON_GetArrayItem(json, indice);
+        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "humedad");
+        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
+        if(!isnan(temperatura)){
+            cJSON_DetachItemFromObject(item, "humedad");
+            cJSON_AddNullToObject(item, "humedad");
+            contador++;
+        }
+    }
+    return contador;
+}
+
+int *EliminarValoresAtipicos(){
+    cJSON *json = ExtraerDatosClimatologicosJSON();
+    int *datos = malloc(5 * sizeof(int));
+    datos[0] = EliminarTemperaturaAtipica(json);
+    datos[1] = EliminarHumedadAtipica(json);
+    datos[2] = EliminarPresionAtipica(json);
+    datos[4] = EliminarVelocidadVientoAtipica(json);
+    datos[5] = EliminarPrecipitacionAtipica(json);
+    return datos;
 }
