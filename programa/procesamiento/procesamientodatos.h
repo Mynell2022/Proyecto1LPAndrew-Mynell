@@ -17,13 +17,13 @@ int ReemplazarPresionFaltante(cJSON* JSON);
 int ReemplazarVelocidadVientoFaltante(cJSON* JSON);
 int ReemplazarPrecipitacionFaltante(cJSON* JSON);
 
-int EliminarDatosDuplicados();
+int *EliminarDatosDuplicados();
 
 int EliminarValoresAtipicos();
-int EliminarTemperaturaAtipica();
-int EliminarHumedadAtipica();
-int EliminarPresionAtipica();
-int EliminarVelocidadVientoAtipica();
-int EliminarPrecipitacionAtipica();
+int EliminarTemperaturaAtipica(cJSON *json);
+int EliminarHumedadAtipica(cJSON *json);
+int EliminarPresionAtipica(cJSON *json);
+int EliminarVelocidadVientoAtipica(cJSON *json);
+int EliminarPrecipitacionAtipica(cJSON *json);
 
 #endif
