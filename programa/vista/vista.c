@@ -8,6 +8,8 @@
 #include "../gestion/datosclimaticos.c"
 #include "../procesamiento/procesamientodatos.h"
 #include "../procesamiento/procesamientodatos.c"
+#include "../procesamiento/busquedadatos.h"
+#include "../procesamiento/busquedadatos.c"
 
 /**
  * Esta funcion limpia el buffer despues de una lectura.
@@ -190,6 +192,117 @@ void EjecutarImprimirCompletarDatos(){
 /**
  * Imprime el menu de procesamiento de datos.
 */
+void SolicitarDatosBusqueda(){
+    int *lista= (int*)malloc(tamanoClimas*5*sizeof(int)),*auxlista= (int*)malloc(tamanoClimas*5*sizeof(int)),*index=0,*auxindex=0;
+    printf("\nIngrese los datos de busqueda, en caso de\nno desear especificar un dato presionar ENTER");
+    printf("\n> En caso de no ingresar una Prioridad se tomara como\nindicacion para no ingresar un valor siguiente\n");
+    printf("\nIngrese prioridad (0)Obligatoria o (1)Preferible de la Region:");
+    int opcion= LeerEntero(), inputI;
+    char* inputS;
+    float inputf;
+    if(opcion<2){
+        printf("\nIngrese Region a buscar: ");
+        inputS= LeerString();
+        printf("\nIngrese estimacion (0)Exacta o (1)Aproximada:");
+        inputI= LeerEntero();
+    if(opcion==1||(opcion==0&&*index==0)){
+        if(inputI==0)
+            BuscarPorRegionExacta(inputS,lista,index);
+        else if(inputI==1)
+            BuscarPorRegionAprox(inputS,lista,index);
+    }else if(opcion==0){
+        if(inputI==0)
+            BuscarPorRegionExacta(inputS,auxlista,auxindex);
+        else if(inputI==1)
+            BuscarPorRegionAprox(inputS,auxlista,auxindex);
+        lista= ProcesarBusqueda(lista,auxlista,index,auxindex);
+    }}
+
+    printf("\nIngrese prioridad (0)Obligatoria o (1)Preferible de la Temperatura:");
+    opcion= LeerEntero();
+    if(opcion<2){
+        printf("\nIngrese Temperatura a buscar: ");
+        inputf= LeerFlotante();
+        printf("\nIngrese estimacion (0)Exacta o (1)Aproximada:");
+        inputI= LeerEntero();
+    if(opcion==1||(opcion==0&&*index==0)){
+        if(inputI==0)
+            BuscarPorTemperaturaExacta(inputf,lista,index);
+        else if(inputI==1)
+            BuscarPorTemperaturaAprox(inputf,lista,index);
+    }else if(opcion==0){
+        if(inputI==0)
+            BuscarPorTemperaturaExacta(inputf,auxlista,auxindex);
+        else if(inputI==1)
+            BuscarPorTemperaturaAprox(inputf,auxlista,auxindex);
+        lista= ProcesarBusqueda(lista,auxlista,index,auxindex);
+    }}
+
+    printf("\nIngrese prioridad (0)Obligatoria o (1)Preferible de la Direccion del Viento:");
+    opcion= LeerEntero();
+    if(opcion<2){
+        printf("\nIngrese Direccion del Viento (N,S,E,W...) a buscar: ");
+        inputS= LeerString();
+        printf("\nIngrese estimacion (0)Exacta o (1)Aproximada:");
+        inputI= LeerEntero();
+    if(opcion==1||(opcion==0&&*index==0)){
+        if(inputI==0)
+            BuscarPorDireccionVientoExacta(inputS,lista,index);
+        else if(inputI==1)
+            BuscarPorDireccionVientoAprox(inputS,lista,index);
+    }else if(opcion==0){
+        if(inputI==0)
+            BuscarPorDireccionVientoExacta(inputS,auxlista,auxindex);
+        else if(inputI==1)
+            BuscarPorDireccionVientoAprox(inputS,auxlista,auxindex);
+        lista= ProcesarBusqueda(lista,auxlista,index,auxindex);
+    }}
+
+    printf("\nIngrese prioridad (0)Obligatoria o (1)Preferible de la Presion:");
+    opcion= LeerEntero();
+    if(opcion<2){
+        printf("\nIngrese Presion a buscar: ");
+        inputf= LeerFlotante();
+        printf("\nIngrese estimacion (0)Exacta o (1)Aproximada:");
+        inputI= LeerEntero();
+    if(opcion==1||(opcion==0&&*index==0)){
+        if(inputI==0)
+            BuscarPorPresionExacta(inputf,lista,index);
+        else if(inputI==1)
+            BuscarPorPresionAprox(inputf,lista,index);
+    }else if(opcion==0){
+        if(inputI==0)
+            BuscarPorPresionExacta(inputf,auxlista,auxindex);
+        else if(inputI==1)
+            BuscarPorPresionAprox(inputf,auxlista,auxindex);
+        lista= ProcesarBusqueda(lista,auxlista,index,auxindex);
+    }}
+
+    printf("\nIngrese prioridad (0)Obligatoria o (1)Preferible de la Precipitacion:");
+    opcion= LeerEntero();
+    if(opcion<2){
+        printf("\nIngrese Precipitacion a buscar: ");
+        inputf= LeerFlotante();
+        printf("\nIngrese estimacion (0)Exacta o (1)Aproximada:");
+        inputI= LeerEntero();
+    if(opcion==1||(opcion==0&&*index==0)){
+        if(inputI==0)
+            BuscarPorPrecipitacionExacta(inputf,lista,index);
+        else if(inputI==1)
+            BuscarPorPrecipitacionAprox(inputf,lista,index);
+    }else if(opcion==0){
+        if(inputI==0)
+            BuscarPorPrecipitacionExacta(inputf,auxlista,auxindex);
+        else if(inputI==1)
+            BuscarPorPrecipitacionAprox(inputf,auxlista,auxindex);
+        lista= ProcesarBusqueda(lista,auxlista,index,auxindex);
+    }}
+    printf("\nResultados:\n%s",Buscar(lista,index));
+}
+
+/**
+ * Imprime el menu de procesamiento de datos.
+*/
 void ImprimirMenuProcesamientoDatos(){
     printf("****Menu procesamiento de datos****\n\t1. Completar datos faltantes");
     printf("\n\t2. Eliminar datos duplicados\n\t3. Eliminar valores atipicos");
@@ -325,10 +438,10 @@ void ImprimirMenuPrincipal(){
 void EjecutarMenuPrincipal(){
     CargarRegiones();
     CargarDatosClimatologicos();
-    int salir = 0;
+    int opcion = 0;
     do{
         ImprimirMenuPrincipal();
-        int opcion = LeerEntero();
+        opcion = LeerEntero();
         switch (opcion){
         case 1:
             EjecutarMenuGestionRegion();
@@ -346,15 +459,16 @@ void EjecutarMenuPrincipal(){
         case 6:
             break;
         case 7:
+            SolicitarDatosBusqueda();
             break;
         case 8:
             break;
         case 9:
-            salir = 1;
+            printf("\n**Hasta Luego**\n\n");
             break;
         default:
             printf("\n**Opcion incorrecta. Intente de nuevo**\n\n");
             break;
         }
-    } while (!salir);
+    } while (opcion!=9);
 }

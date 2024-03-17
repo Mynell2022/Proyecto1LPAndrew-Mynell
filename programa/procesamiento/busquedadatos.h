@@ -1,8 +1,6 @@
-#include "region.h"
-#include "clima.h"
+#include "../structs/region.h"
+#include "../structs/clima.h"
 #include <stdbool.h>
-
-int* index=0;
 
 char* Buscar(int*,int*);
 void BuscarPorRegionExacta(char*,int*,int*);
@@ -15,4 +13,4 @@ void BuscarPorPresionExacta(float,int*,int*);
 void BuscarPorPresionAprox(float,int*,int*);
 void BuscarPorPrecipitacionExacta(float,int*,int*);
 void BuscarPorPrecipitacionAprox(float,int*,int*);
-int* Interseccion(int*,int*,int*,int*);
+int* ProcesarBusqueda(int*,int*,int*,int*);

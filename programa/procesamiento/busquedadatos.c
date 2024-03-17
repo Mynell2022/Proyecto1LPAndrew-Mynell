@@ -112,15 +112,16 @@ void BuscarPorPrecipitacionAprox(float precipitacion,int* lista, int* index){
     }lista[*index++]=mejorIndice;
 }
 
-int* Interseccion(int* arreglo1,int* arreglo2, int* longitud1, int* longitud2) {
+int* ProcesarBusqueda(int* arreglo1,int* arreglo2, int* longitud1, int* longitud2) {
     int* arregloInterseccion = NULL;
     int longitudInterseccion = 0;
+    int cond=1;
     for (int i = 0; i < *longitud1; i++) {
         for (int j = 0; j < *longitud2; j++) {
             if (arreglo1[i] == arreglo2[j]) {
-                (longitudInterseccion)++;
                 arregloInterseccion = (int*)realloc(arregloInterseccion, (longitudInterseccion) * sizeof(int));
-                arregloInterseccion[(longitudInterseccion) - 1] = arreglo1[i];
+                arregloInterseccion[(longitudInterseccion)++] = arreglo1[i];
+                cond=0;
                 break;
             }
         }
