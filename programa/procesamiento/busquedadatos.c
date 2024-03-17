@@ -27,7 +27,7 @@ void BuscarPorRegionAprox(char* region,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         Region region1= ObtenerRegion(climas[i].Region), region2= ObtenerRegion(region);
         if(region1.nombre!=NULL&&region2.nombre!=NULL){
-            distancia= sqrt(((region1.x-region2.x)*(region1.x-region2.x))+((region1.y-region2.y)*(region1.y-region2.y)));
+            float distancia= sqrt(((region1.x-region2.x)*(region1.x-region2.x))+((region1.y-region2.y)*(region1.y-region2.y)));
             if(distancia<mejorDistancia){
                 mejorDistancia=distancia;
                 mejorIndice=i;

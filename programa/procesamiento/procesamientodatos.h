@@ -17,9 +17,9 @@ int ReemplazarPresionFaltante(cJSON* JSON);
 int ReemplazarVelocidadVientoFaltante(cJSON* JSON);
 int ReemplazarPrecipitacionFaltante(cJSON* JSON);
 
-int *EliminarDatosDuplicados();
+int EliminarDatosDuplicados();
 
-int EliminarValoresAtipicos();
+int *EliminarValoresAtipicos();
 int EliminarTemperaturaAtipica(cJSON *json);
 int EliminarHumedadAtipica(cJSON *json);
 int EliminarPresionAtipica(cJSON *json);

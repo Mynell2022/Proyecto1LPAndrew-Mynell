@@ -11,6 +11,9 @@
  * @return Las cantidades de datos que fueron cambiados.
 */
 int* CompletarDatosFaltantes(){
+    if(tamanoClimas == 0){
+        return NULL;
+    }
     cJSON *json = ExtraerDatosClimatologicosJSON();
     int temperaturaFaltante = ReemplazarTemperaturaFaltante(json);
     int humedadFaltante = ReemplazarHumedadFaltante(json);
@@ -306,10 +309,16 @@ int EliminarDatosDuplicados(){
             lotesRepetidos += BuscarDuplicados(climas[indice], lotesAEliminar, lotesRepetidos);
         }
     }
-    EliminarRepetidosJSON(lotesAEliminar, lotesRepetidos);lotesAEliminar;
+    EliminarRepetidosJSON(lotesAEliminar, lotesRepetidos);
     return lotesRepetidos;
 }
 
+/**
+ * Cuenta la cantidad de elementos de un arreglo de números flotantes.
+ * 
+ * @param arreglo El arreglo que se debe contar.
+ * @return La cantidad de elementos.
+*/
 int ContarArregloFlotante(float *arreglo){
     int cantidad = 0;
     while(!isnan(arreglo[cantidad])){
@@ -318,52 +327,40 @@ int ContarArregloFlotante(float *arreglo){
     return cantidad;
 }
 
-float *OrdenarArreglos(float *arregloUno, float *arregloDos){
-    int tamanoUno = ContarArregloFlotante(arregloUno);
-    int tamanoDos = ContarArregloFlotante(arregloDos);
-    int indiceUno = 0;
-    int indiceDos = 0;
-    float *arregloFinal = malloc((tamanoUno + tamanoDos + 1) * sizeof(float));
-    for(int indice = 0; indiceUno < tamanoUno || indiceDos < tamanoDos; indice++){
-        if(indiceUno < tamanoUno && (indiceDos == tamanoDos || arregloUno[indiceUno] < arregloDos[indiceDos])){
-            arregloFinal[indice] = arregloUno[indiceUno];
-            indiceUno++;
+/**
+ * Intercambia dos elementos de posición
+ * 
+ * @param a El primer elemento.
+ * @param b El segundo elemento.
+*/
+void Intercambiar(float *a, float *b) {
+    float temporal = *a;
+    *a = *b;
+    *b = temporal;
+}
+
+/**
+ * Ordena el arreglo.
+ * 
+ * @param arreglo El arreglo a ordenar.
+*/
+void OrdenarArreglo(float *arreglo) {
+    int longitud = ContarArregloFlotante(arreglo);
+    for (int indice = 0; indice < longitud - 1; indice++) {
+        for (int j = 0; j < longitud - indice - 1; j++) {
+            if (arreglo[j] > arreglo[j + 1]) {
+                Intercambiar(&arreglo[j], &arreglo[j + 1]);
+            }
         }
-        else{
-            arregloFinal[indice] = arregloDos[indiceDos];
-            indiceDos++;
-        }
     }
-    arregloFinal[tamanoUno + tamanoDos] = NAN;
-    return arregloFinal;
+    arreglo[longitud] = NAN;
 }
 
-float *SacarSegundaMitad(float *arreglo){
-    int tamano = ContarArregloFlotante(arreglo);
-    int indiceMitad = tamano / 2;
-    int tamanoMitad = tamano - indiceMitad;
-    int copiaIndiceMitad = indiceMitad;
-    float *mitad = malloc((tamano + 1) * sizeof(float));;
-    int indiceArregloNuevo = 0;
-    for(int indice = 0; indice < tamano; indice++){
-        mitad[indice] = arreglo[indiceMitad];
-    }
-    arreglo[copiaIndiceMitad] = NAN;
-    mitad[tamanoMitad] = NAN;
-    return mitad;
-}
-
-float *MergeSort(float *arreglo){
-    if(ContarArregloFlotante(arreglo) == 1){
-        return arreglo;
-    }
-    float *mitadArreglo = SacarSegundaMitad(arreglo);
-    float *mitadUno = MergeSort(arreglo);
-    float *mitadDos = MergeSort(mitadArreglo);
-    float *arregloOrdenado = OrdenarArreglos(mitadUno, mitadDos);
-    return arregloOrdenado;
-}
-
+/**
+ * Crear un arreglo que contiene los datos de temperatura.
+ * 
+ * @return El arreglo de datos de temperatura.
+*/
 float *CrearArregloTemperatura(){
     int tamanoArreglo;
     float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
@@ -376,10 +373,15 @@ float *CrearArregloTemperatura(){
             arreglo[indiceArreglo] = NAN;
         }
     }
-    arreglo = MergeSort(arreglo);
+    OrdenarArreglo(arreglo);
     return arreglo;
 }
 
+/**
+ * Crear un arreglo que contiene los datos de humedad.
+ * 
+ * @return El arreglo de datos de humedad.
+*/
 float *CrearArregloHumedad(){
     int tamanoArreglo;
     float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
@@ -392,10 +394,15 @@ float *CrearArregloHumedad(){
             arreglo[indiceArreglo] = NAN;
         }
     }
-    arreglo = MergeSort(arreglo);
+    OrdenarArreglo(arreglo);
     return arreglo;
 }
 
+/**
+ * Crear un arreglo que contiene los datos de presion.
+ * 
+ * @return El arreglo de datos de presion.
+*/
 float *CrearArregloPresion(){
     int tamanoArreglo;
     float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
@@ -408,10 +415,15 @@ float *CrearArregloPresion(){
             arreglo[indiceArreglo] = NAN;
         }
     }
-    arreglo = MergeSort(arreglo);
+    OrdenarArreglo(arreglo);
     return arreglo;
 }
 
+/**
+ * Crear un arreglo que contiene los datos de velocidad de viento.
+ * 
+ * @return El arreglo de datos de viento.
+*/
 float *CrearArregloVelocidadTiempo(){
     int tamanoArreglo;
     float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
@@ -420,14 +432,19 @@ float *CrearArregloVelocidadTiempo(){
         float velocidadViento = climas[indice].VelocidadViento;
         if(!isnan(velocidadViento)){
             arreglo[indiceArreglo] = velocidadViento;
+            arreglo[indiceArreglo + 1] = NAN;
             indiceArreglo++;
-            arreglo[indiceArreglo] = NAN;
         }
     }
-    arreglo = MergeSort(arreglo);
+    OrdenarArreglo(arreglo);
     return arreglo;
 }
 
+/**
+ * Crear un arreglo que contiene los datos de precipitacion.
+ * 
+ * @return El arreglo de datos de precipitacion.
+*/
 float *CrearArregloPrecipitacion(){
     int tamanoArreglo;
     float *arreglo = malloc((tamanoClimas + 1) * sizeof(float));
@@ -440,10 +457,16 @@ float *CrearArregloPrecipitacion(){
             arreglo[indiceArreglo] = NAN;
         }
     }
-    arreglo = MergeSort(arreglo);
+    OrdenarArreglo(arreglo);
     return arreglo;
 }
 
+/**
+ * Calcula el rango de los datos típicos.
+ * 
+ * @param arreglo El arreglo que se utilizará para los cálculos.
+ * @return Un arreglo de longitud 2 con el rango.
+*/
 float *CalcularRangoAtípico(float *arreglo){
     int tamano = ContarArregloFlotante(arreglo);
     int indiceMediana = (tamano - 1) / 2;
@@ -459,6 +482,12 @@ float *CalcularRangoAtípico(float *arreglo){
     return rangos;
 }
 
+/**
+ * Elimina los valores atípicos de la temperatura.
+ * 
+ * @param json El objeto JSON con los datos.
+ * @return La cantidad de elementos eliminados.
+*/
 int EliminarTemperaturaAtipica(cJSON *json){
     float *arregloTemperatura = CrearArregloTemperatura();
     float *rangos = CalcularRangoAtípico(arregloTemperatura);
@@ -468,7 +497,7 @@ int EliminarTemperaturaAtipica(cJSON *json){
         cJSON *item = cJSON_GetArrayItem(json, indice);
         cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "temperatura");
         float temperatura = cJSON_GetNumberValue(temperaturaJSON);
-        if(!isnan(temperatura)){
+        if(!isnan(temperatura) && (temperatura < rangos[0] || temperatura > rangos[1])){
             cJSON_DetachItemFromObject(item, "temperatura");
             cJSON_AddNullToObject(item, "temperatura");
             contador++;
@@ -477,6 +506,12 @@ int EliminarTemperaturaAtipica(cJSON *json){
     return contador;
 }
 
+/**
+ * Elimina los valores atípicos de la humedad.
+ * 
+ * @param json El objeto JSON con los datos.
+ * @return La cantidad de elementos eliminados.
+*/
 int EliminarHumedadAtipica(cJSON *json){
     float *arregloHumedad = CrearArregloHumedad();
     float *rangos = CalcularRangoAtípico(arregloHumedad);
@@ -484,9 +519,9 @@ int EliminarHumedadAtipica(cJSON *json){
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
         cJSON *item = cJSON_GetArrayItem(json, indice);
-        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "humedad");
-        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
-        if(!isnan(temperatura)){
+        cJSON *humedadJSON = cJSON_GetObjectItem(item, "humedad");
+        float humedad = cJSON_GetNumberValue(humedadJSON);
+        if(!isnan(humedad) && (humedad < rangos[0] || humedad > rangos[1])){
             cJSON_DetachItemFromObject(item, "humedad");
             cJSON_AddNullToObject(item, "humedad");
             contador++;
@@ -495,16 +530,22 @@ int EliminarHumedadAtipica(cJSON *json){
     return contador;
 }
 
+/**
+ * Elimina los valores atípicos de la presión atmosférica.
+ * 
+ * @param json El objeto JSON con los datos.
+ * @return La cantidad de elementos eliminados.
+*/
 int EliminarPresionAtipica(cJSON *json){
-    float *arregloHumedad = CrearArregloPresion();
-    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    float *arregloPresion = CrearArregloPresion();
+    float *rangos = CalcularRangoAtípico(arregloPresion);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
         cJSON *item = cJSON_GetArrayItem(json, indice);
-        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "presion");
-        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
-        if(!isnan(temperatura)){
+        cJSON *presionJSON = cJSON_GetObjectItem(item, "presion");
+        float presion = cJSON_GetNumberValue(presionJSON);
+        if(!isnan(presion) && (presion < rangos[0] || presion > rangos[1])){
             cJSON_DetachItemFromObject(item, "presion");
             cJSON_AddNullToObject(item, "presion");
             contador++;
@@ -513,16 +554,22 @@ int EliminarPresionAtipica(cJSON *json){
     return contador;
 }
 
+/**
+ * Elimina los valores atípicos de la velocidad del viento.
+ * 
+ * @param json El objeto JSON con los datos.
+ * @return La cantidad de elementos eliminados.
+*/
 int EliminarVelocidadVientoAtipica(cJSON *json){
-    float *arregloHumedad = CrearArregloHumedad();
-    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    float *arregloVelocidadViento = CrearArregloVelocidadTiempo();
+    float *rangos = CalcularRangoAtípico(arregloVelocidadViento);
     int tamanoJSON = cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
         cJSON *item = cJSON_GetArrayItem(json, indice);
-        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "velocidadViento");
-        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
-        if(!isnan(temperatura)){
+        cJSON *velocidadVientoJSON = cJSON_GetObjectItem(item, "velocidadViento");
+        float velocidadViento = cJSON_GetNumberValue(velocidadVientoJSON);
+        if(!isnan(velocidadViento) && (velocidadViento < rangos[0] || velocidadViento > rangos[1])){
             cJSON_DetachItemFromObject(item, "velocidadViento");
             cJSON_AddNullToObject(item, "velocidadViento");
             contador++;
@@ -531,31 +578,47 @@ int EliminarVelocidadVientoAtipica(cJSON *json){
     return contador;
 }
 
+/**
+ * Elimina los valores atípicos de la precipitación.
+ * 
+ * @param json El objeto JSON con los datos.
+ * @return La cantidad de elementos eliminados.
+*/
 int EliminarPrecipitacionAtipica(cJSON *json){
-    float *arregloHumedad = CrearArregloHumedad();
-    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    float *arregloPrecipitacion = CrearArregloPrecipitacion();
+    float *rangos = CalcularRangoAtípico(arregloPrecipitacion);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
         cJSON *item = cJSON_GetArrayItem(json, indice);
-        cJSON *temperaturaJSON = cJSON_GetObjectItem(item, "humedad");
-        float temperatura = cJSON_GetNumberValue(temperaturaJSON);
-        if(!isnan(temperatura)){
-            cJSON_DetachItemFromObject(item, "humedad");
-            cJSON_AddNullToObject(item, "humedad");
+        cJSON *precipitacionJSON = cJSON_GetObjectItem(item, "precipitacion");
+        float precipitacion = cJSON_GetNumberValue(precipitacionJSON);
+        if(!isnan(precipitacion) && (precipitacion < rangos[0] || precipitacion > rangos[1])){
+            cJSON_DetachItemFromObject(item, "precipitacion");
+            cJSON_AddNullToObject(item, "precipitacion");
             contador++;
         }
     }
     return contador;
 }
 
+/**
+ * Ejecuta todas las funciones para eliminar los valores atípicos.
+ * 
+ * @return Envía la cantidad de elementos eliminados por cada dato, si no hay datos, envía NULL.
+*/
 int *EliminarValoresAtipicos(){
-    cJSON *json = ExtraerDatosClimatologicosJSON();
-    int *datos = malloc(5 * sizeof(int));
-    datos[0] = EliminarTemperaturaAtipica(json);
-    datos[1] = EliminarHumedadAtipica(json);
-    datos[2] = EliminarPresionAtipica(json);
-    datos[4] = EliminarVelocidadVientoAtipica(json);
-    datos[5] = EliminarPrecipitacionAtipica(json);
-    return datos;
+    if(tamanoClimas != 0){
+        cJSON *json = ExtraerDatosClimatologicosJSON();
+        int *datos = malloc(5 * sizeof(int));
+        datos[0] = EliminarTemperaturaAtipica(json);
+        datos[1] = EliminarHumedadAtipica(json);
+        datos[2] = EliminarPresionAtipica(json);
+        datos[3] = EliminarVelocidadVientoAtipica(json);
+        datos[4] = EliminarPrecipitacionAtipica(json);
+        CargarHaciaJSON(json);
+        CargarDatosClimatologicos();
+        return datos;
+    }
+    return NULL;
 }

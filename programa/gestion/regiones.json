@@ -1,11 +1,11 @@
 [{
-		"nombre":	"Cahuita",
-		"descripcion":	"Zona de animales",
-		"x":	58,
-		"y":	14
-	}, {
 		"nombre":	"Manzanillo",
 		"descripcion":	"Parque nacional",
 		"x":	95,
 		"y":	15
+	}, {
+		"nombre":	"Peñas blancas",
+		"descripcion":	"Un logar lejano",
+		"x":	56.561538696289062,
+		"y":	54.541641235351562
 	}]

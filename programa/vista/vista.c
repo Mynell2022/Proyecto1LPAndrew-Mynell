@@ -169,6 +169,20 @@ void EjecutarMenuAnalisisDatos(){
     char *dato = LeerString();
 }
 
+void EjecutarImprimirEliminarValoresAtipicos(){
+    int *datos = EliminarValoresAtipicos();
+    if(datos != NULL){
+        printf("\n****Eliminando valores atípicos****\nDatos atípicos de temperatura eliminados: %i", datos[0]);
+        printf("\nDatos atípicos de humedad eliminados: %i", datos[1]);
+        printf("\nDatos atípicos de presion atmosférica eliminados: %i", datos[2]);
+        printf("\nDatos atípicos de velocidad del viento eliminados: %i", datos[3]);
+        printf("\nDatos atípicos de precipitación eliminados: %i\n\n", datos[4]);
+    }
+    else{
+        printf("\nNo hay lotes guardados\n\n");
+    }
+}
+
 /**
  * Ejecuta la función eliminar datos duplicados y muestra la cantidad de datos eliminados.
 */
@@ -182,11 +196,16 @@ void EjecutarImprimirEliminarDuplicados(){
 */
 void EjecutarImprimirCompletarDatos(){
     int *datos = CompletarDatosFaltantes();
-    printf("\nDatos de temperatura completados: %i", datos[0]);
-    printf("\nDatos de humedad completados: %i", datos[1]);
-    printf("\nDatos de presion completados: %i", datos[2]);
-    printf("\nDatos de velocidad del viento completados: %i", datos[3]);
-    printf("\nDatos de precipitacion completados: %i\n\n", datos[4]);
+    if(datos != NULL){
+        printf("\nDatos de temperatura completados: %i", datos[0]);
+        printf("\nDatos de humedad completados: %i", datos[1]);
+        printf("\nDatos de presion completados: %i", datos[2]);
+        printf("\nDatos de velocidad del viento completados: %i", datos[3]);
+        printf("\nDatos de precipitacion completados: %i\n\n", datos[4]);
+    }
+    else{
+        printf("\nNo hay lotes guardados\n\n");
+    }
 }
 
 /**
@@ -340,6 +359,7 @@ void EjecutarMenuProcesamientoDatos(){
         EjecutarImprimirEliminarDuplicados();
         break;
     case 3:
+        EjecutarImprimirEliminarValoresAtipicos();
         break;
     default:
         printf("\n***Opcion incorrecta***\n\n");
