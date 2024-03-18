@@ -28,7 +28,7 @@ int CrearRegion(char* nombre, float coordX, float coordY, char* descripcion){
 int VerificarExistenciaRegion(Region *region){
     for(int i=0;i<tamanoRegion;i++){
         if (strcmp(regiones[i].nombre, region->nombre) == 0
-            && (regiones[i].x==region->x
+            || (regiones[i].x==region->x
             && regiones[i].y==region->y))
             return 1;
     }return 0;

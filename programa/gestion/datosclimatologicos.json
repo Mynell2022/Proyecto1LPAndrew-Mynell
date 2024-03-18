@@ -13,7 +13,7 @@
 		"presion":	1010,
 		"velocidadViento":	18,
 		"direccionViento":	"W",
-		"precipitacion":	null
+		"precipitacion":	69.5480499267578
 	}, {
 		"ID":	2,
 		"region":	"Norte",
@@ -74,10 +74,10 @@
 		},
 		"direccionViento":	"E",
 		"precipitacion":	0,
-		"temperatura":	null,
-		"humedad":	null,
-		"presion":	null,
-		"velocidadViento":	null
+		"humedad":	104.23635864257812,
+		"temperatura":	69.5480499267578,
+		"presion":	69.5480499267578,
+		"velocidadViento":	69.5480499267578
 	}, {
 		"ID":	6,
 		"region":	"Sur",
@@ -94,4 +94,36 @@
 		"velocidadViento":	19,
 		"direccionViento":	"SE",
 		"precipitacion":	0
+	}, {
+		"ID":	7,
+		"region":	"Norte",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	7,
+			"minuto":	0
+		},
+		"temperatura":	13.5,
+		"humedad":	59.3,
+		"presion":	1010,
+		"velocidadViento":	18,
+		"direccionViento":	"W",
+		"precipitacion":	69.5480499267578
+	}, {
+		"ID":	11,
+		"region":	"Sur",
+		"fechaHora":	{
+			"anio":	2023,
+			"mes":	5,
+			"dia":	1,
+			"hora":	1,
+			"minuto":	0
+		},
+		"direccionViento":	"E",
+		"precipitacion":	0,
+		"temperatura":	69.5480499267578,
+		"humedad":	69.5480499267578,
+		"presion":	69.5480499267578,
+		"velocidadViento":	69.5480499267578
 	}]
