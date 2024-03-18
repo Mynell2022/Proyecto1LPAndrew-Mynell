@@ -228,7 +228,7 @@ void OrdenarArregloFlotante(float *arreglo) {
     for (int indice = 0; indice < longitud - 1; indice++) {
         for (int j = 0; j < longitud - indice - 1; j++) {
             if (arreglo[j] > arreglo[j + 1]) {
-                Intercambiar(&arreglo[j], &arreglo[j + 1]);
+                IntercambiarNumeros(&arreglo[j], &arreglo[j + 1]);
             }
         }
     }
@@ -240,7 +240,7 @@ void OrdenarArregloFlotante(float *arreglo) {
 /// @param datos Los datos de los registros.
 /// @return Un arreglo de float con el mínimo y el máximo.
 float *CalcularRango(float* datos){
-    OrdenarArreglo(datos);
+    OrdenarArregloFlotante(datos);
     int longitud = ContarArreglo(datos);
     if(longitud != 0){
         float minimo = datos[0];

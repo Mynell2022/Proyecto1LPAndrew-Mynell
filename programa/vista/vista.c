@@ -4,6 +4,8 @@
 #include <time.h>
 #include <math.h>
 
+#include "../analisis/analisiscorrelacion.h"
+#include "../analisis/analisiscorrelacion.c"
 #include "../gestion/gestionregiones.h"
 #include "../gestion/gestionregiones.c"
 #include "../gestion/datosclimaticos.h"
@@ -74,16 +76,47 @@ void ImprimirEstadisticas(){
     TopMesAnio(5);
 }
 
+char *DarOpcion(int opcion){
+    switch (opcion){
+    case 1:
+        return "temperatura";
+    case 2:
+        return "humedad";
+    case 3:
+        return "presion";
+    case 4:
+        return "velocidadViento";
+    case 5:
+        return "precipitacion";
+    }
+}
+
 /**
  * Solicita la informacion para enviar a realizar el analisis de correlacion
 */
 void SolicitarDatosAnalisisCorrelacion(){
     printf("Ingrese la region: ");
     char *region = LeerString();
-    printf("Ingrese el dato uno a analizar: ");
-    char *datoUno = LeerString();
-    printf("Ingrese el dato dos a analizar: ");
-    char *datoDos = LeerString();
+    printf("Dato Uno\n\t1.Temperatura\n\t2.Humedad\n\t3.Presión atmosférica\n\t");
+    printf("4.Velocidad del viento\n\t5.Precipitación\nElija una opcion: ");
+    int opcionUno = LeerEntero();
+    char *datoUno = NULL;
+    if(opcionUno < 0){
+        printf("\n***Opción incorrecta***\n\n");
+        return;
+    }
+    else
+        datoUno = DarOpcion(opcionUno);
+    printf("Dato Dos\n\t1.Temperatura\n\t2.Humedad\n\t3.Presión atmosférica\n\t");
+    printf("4.Velocidad del viento\n\t5.Precipitación\nElija una opcion: ");
+    int opcionDos = LeerEntero();
+    char *datoDos = NULL;
+    if(opcionDos < 0){
+        printf("\n***Opción incorrecta***\n\n");
+        return;
+    }
+    else
+        datoUno = DarOpcion(opcionDos);
     printf("Ingrese el dia de la fecha inicial: ");
     int diaInicial = LeerEntero();
     if(diaInicial < 1 || diaInicial > 31){
@@ -124,11 +157,17 @@ void SolicitarDatosAnalisisCorrelacion(){
     fechaInicial.tm_year = anioInicial;
     fechaInicial.tm_mon = mesInicial;
     fechaInicial.tm_mday = diaInicial;
+    time_t fechaIni = mktime(&fechaInicial);
     struct tm fechaFinal = {0};
     fechaFinal.tm_year = anioFinal;
     fechaFinal.tm_mon = mesFinal;
     fechaFinal.tm_mday = diaFinal;
-
+    time_t fechaFin = mktime(&fechaFinal);
+    float coeficiente = AnalizarCorrelacion(region, datoUno, datoDos, fechaIni, fechaFin);
+    if(!isnan(coeficiente))
+        printf("\nEl coeficiente de correlación de Pearson es %.4f\n\n", coeficiente);
+    else
+        printf("\n***No se puede calcular el coeficiente de correlación de Pearson\n\n");
 }
 
 /**
@@ -560,6 +599,7 @@ void EjecutarMenuPrincipal(){
         case 4:
             break;
         case 5:
+            SolicitarDatosAnalisisCorrelacion();
             break;
         case 6:
             EjecutarImprimirRangoVarianza();
