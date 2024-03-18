@@ -8,4 +8,9 @@
 		"descripcion":	"Un logar lejano",
 		"x":	56.561538696289062,
 		"y":	54.541641235351562
+	}, {
+		"nombre":	"Norte",
+		"descripcion":	"Donde vive Santa Claus",
+		"x":	80,
+		"y":	45
 	}]
