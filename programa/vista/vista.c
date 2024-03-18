@@ -17,6 +17,8 @@
 #include "../structs/datosvisualizador.h"
 #include "../analisis/analisisdatos.h"
 #include "../analisis/analisisdatos.c"
+#include "../analisis/estadisticas.h"
+#include "../analisis/estadisticas.c"
 
 /**
  * Esta funcion limpia el buffer despues de una lectura.
@@ -63,6 +65,13 @@ char *LeerString(){
         return NULL;
     }
     return entrada;
+}
+
+void ImprimirEstadisticas(){
+    printf("\nEstadisticas:\n");
+    TopPrecipitacion(3);
+    TopVelocidadViento(5);
+    TopMesAnio(5);
 }
 
 /**
@@ -559,6 +568,7 @@ void EjecutarMenuPrincipal(){
             SolicitarDatosBusqueda();
             break;
         case 8:
+            ImprimirEstadisticas();
             break;
         case 9:
             printf("\n**Hasta Luego**\n\n");
