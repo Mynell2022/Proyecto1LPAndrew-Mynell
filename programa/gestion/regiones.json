@@ -1,9 +1,4 @@
 [{
-		"nombre":	"Manzanillo",
-		"descripcion":	"Parque nacional",
-		"x":	95,
-		"y":	15
-	}, {
 		"nombre":	"Peñas blancas",
 		"descripcion":	"Un logar lejano",
 		"x":	56.561538696289062,
@@ -13,4 +8,9 @@
 		"descripcion":	"Donde vive Santa Claus",
 		"x":	80,
 		"y":	45
+	}, {
+		"nombre":	"Valle La Estrella",
+		"descripcion":	"Un valle lleno de bananeras",
+		"x":	156.65119934082031,
+		"y":	-26.641599655151367
 	}]

@@ -7,6 +7,8 @@
 #ifndef GESTIONREGIONES_H
 #define GESTIONREGIONES_H
 
+#include "../cJSON/cJSON.h"
+
 Region *regiones = NULL;
 int tamanoRegion = 0;
 

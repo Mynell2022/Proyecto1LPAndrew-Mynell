@@ -54,7 +54,7 @@ int EliminarRegion(char* nombre){
         cJSON *item = cJSON_GetArrayItem(json, indice);
         cJSON *nombreObjeto = cJSON_GetObjectItem(item, "nombre");
         char *nombreGuardado = cJSON_GetStringValue(nombreObjeto);
-        if(strcmp(nombreGuardado, nombre)){
+        if(strcmp(nombreGuardado, nombre) == 0){
             cJSON_DeleteItemFromArray(json, indice);
             GuardarJSONRegion(json);
             CargarRegiones();

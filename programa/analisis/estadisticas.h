@@ -1,6 +1,5 @@
 #include "../structs/clima.h"
 #include "../gestion/datosclimaticos.h"
-#include "../gestion/datosclimaticos.c"
 
 #ifndef ESTADISTICAS_H
 #define ESTADISTICAS_H
