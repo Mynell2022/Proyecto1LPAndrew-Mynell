@@ -69,6 +69,7 @@ char *LeerString(){
     return entrada;
 }
 
+
 void ImprimirEstadisticas(){
     printf("\nEstadisticas:\n");
     TopPrecipitacion(3);
@@ -601,6 +602,7 @@ void EjecutarMenuPrincipal(){
             EjecutarMenuProcesamientoDatos();
             break;
         case 4:
+            EjecutarMenuAnalisisDatos();
             break;
         case 5:
             SolicitarDatosAnalisisCorrelacion();
