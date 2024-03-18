@@ -116,7 +116,7 @@ void SolicitarDatosAnalisisCorrelacion(){
         return;
     }
     else
-        datoUno = DarOpcion(opcionDos);
+        datoDos = DarOpcion(opcionDos);
     printf("Ingrese el dia de la fecha inicial: ");
     int diaInicial = LeerEntero();
     if(diaInicial < 1 || diaInicial > 31){
@@ -154,20 +154,20 @@ void SolicitarDatosAnalisisCorrelacion(){
         return;
     }
     struct tm fechaInicial = {0};
-    fechaInicial.tm_year = anioInicial;
-    fechaInicial.tm_mon = mesInicial;
+    fechaInicial.tm_year = anioInicial - 1900;
+    fechaInicial.tm_mon = mesInicial - 1;
     fechaInicial.tm_mday = diaInicial;
     time_t fechaIni = mktime(&fechaInicial);
     struct tm fechaFinal = {0};
-    fechaFinal.tm_year = anioFinal;
-    fechaFinal.tm_mon = mesFinal;
+    fechaFinal.tm_year = anioFinal - 1900;
+    fechaFinal.tm_mon = mesFinal - 1;
     fechaFinal.tm_mday = diaFinal;
     time_t fechaFin = mktime(&fechaFinal);
     float coeficiente = AnalizarCorrelacion(region, datoUno, datoDos, fechaIni, fechaFin);
     if(!isnan(coeficiente))
         printf("\nEl coeficiente de correlación de Pearson es %.4f\n\n", coeficiente);
     else
-        printf("\n***No se puede calcular el coeficiente de correlación de Pearson\n\n");
+        printf("\n***No se puede calcular el coeficiente de correlación de Pearson***\n\n");
 }
 
 /**
