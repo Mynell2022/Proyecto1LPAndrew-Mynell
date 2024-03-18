@@ -29,7 +29,7 @@ cJSON *AgregarFecha(char *fecha, char *hora){
 /**
  * Hace un split a un char* utilizando las comas como separadores.
  * 
- * @param linea La linea que tiene la infomación del lote.
+ * @param linea La linea que tiene la infomacion del lote.
 */
 char **SplitLotes(char *linea){
     int cantidad = 1;
@@ -65,10 +65,10 @@ char **SplitLotes(char *linea){
 /**
  * Inserta un valor al item JSON.
  * 
- * @param item El item JSON en el que se guarda la información.
- * @param tipoDato El tipo de dato que se insertará en el JSON.
+ * @param item El item JSON en el que se guarda la informacion.
+ * @param tipoDato El tipo de dato que se insertara en el JSON.
  * @param llave El nombre de la llave.
- * @param valor El valor que se guardará en el item.
+ * @param valor El valor que se guardara en el item.
 */
 void InsertarElementoEnJSON(cJSON *item, char tipoDato, char *llave, char *valor){
     if (valor == NULL){
@@ -233,7 +233,7 @@ void CargarDatosClimatologicos(){
 }
 
 /**
- * Se envía la información total del clima.
+ * Se envia la informacion total del clima.
 */
 char* ToString(Clima* clima){
     char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));

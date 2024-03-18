@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <time.h>
 
 #include "../gestion/gestionregiones.h"
@@ -10,6 +11,8 @@
 #include "../procesamiento/procesamientodatos.c"
 #include "../procesamiento/busquedadatos.h"
 #include "../procesamiento/busquedadatos.c"
+#include "../analisis/analisisdatos.h"
+#include "../analisis/analisisdatos.c"
 
 /**
  * Esta funcion limpia el buffer despues de una lectura.
@@ -119,7 +122,7 @@ void SolicitarDatosAnalisisCorrelacion(){
  * Este metodo ejecuta el menu para enviar a hacer un analisis de datos.
 */
 void EjecutarMenuAnalisisDatos(){
-    printf("Ingrese la region: ");
+    printf("\nSi desea elegir cualquier region entonces ingrese ALL\nIngrese la region: ");
     char *region = LeerString();
     printf("Ingrese el dia de la fecha inicial: ");
     int diaInicial = LeerEntero();
@@ -165,18 +168,27 @@ void EjecutarMenuAnalisisDatos(){
     fechaFinal.tm_year = anioFinal;
     fechaFinal.tm_mon = mesFinal;
     fechaFinal.tm_mday = diaFinal;
-    printf("Ingrese el dato que desea analizar: ");
-    char *dato = LeerString();
+    printf("\n(0) Temperatura, (1) Humedad, (2) Presion, (3) Velocidad de Viento, (4) Precipitacion\nIngrese el dato que desea analizar: ");
+    int dato = LeerEntero();
+    if(dato < 0 || dato > 4){
+        printf("\nOpcion desconocida");
+        return;
+    }
+    float* analisis=AnalizarDatos(region,mktime(&fechaInicial),mktime(&fechaFinal),dato);
+    printf("Media(Promedio): %f",ObtenerMedia(analisis,sizeof(analisis)/sizeof(analisis[0])));
+    printf("Desviacion estandar: %f",ObtenerDesviacionEstandar(analisis,sizeof(analisis)/sizeof(analisis[0])));
+    printf("Moda: %f",ObtenerModa(analisis,sizeof(analisis)/sizeof(analisis[0])));
+    printf("Mediana: %f",ObtenerMediana(analisis,sizeof(analisis)/sizeof(analisis[0])));
 }
 
 void EjecutarImprimirEliminarValoresAtipicos(){
     int *datos = EliminarValoresAtipicos();
     if(datos != NULL){
-        printf("\n****Eliminando valores atípicos****\nDatos atípicos de temperatura eliminados: %i", datos[0]);
-        printf("\nDatos atípicos de humedad eliminados: %i", datos[1]);
-        printf("\nDatos atípicos de presion atmosférica eliminados: %i", datos[2]);
-        printf("\nDatos atípicos de velocidad del viento eliminados: %i", datos[3]);
-        printf("\nDatos atípicos de precipitación eliminados: %i\n\n", datos[4]);
+        printf("\n****Eliminando valores atipicos****\nDatos atipicos de temperatura eliminados: %i", datos[0]);
+        printf("\nDatos atipicos de humedad eliminados: %i", datos[1]);
+        printf("\nDatos atipicos de presion atmosferica eliminados: %i", datos[2]);
+        printf("\nDatos atipicos de velocidad del viento eliminados: %i", datos[3]);
+        printf("\nDatos atipicos de precipitacion eliminados: %i\n\n", datos[4]);
     }
     else{
         printf("\nNo hay lotes guardados\n\n");
@@ -184,7 +196,7 @@ void EjecutarImprimirEliminarValoresAtipicos(){
 }
 
 /**
- * Ejecuta la función eliminar datos duplicados y muestra la cantidad de datos eliminados.
+ * Ejecuta la funcion eliminar datos duplicados y muestra la cantidad de datos eliminados.
 */
 void EjecutarImprimirEliminarDuplicados(){
     int cantidad = EliminarDatosDuplicados();
@@ -192,7 +204,7 @@ void EjecutarImprimirEliminarDuplicados(){
 }
 
 /**
- * Ejecuta el código para completar los datos faltantes e imprime la cantidad de datos completados.
+ * Ejecuta el codigo para completar los datos faltantes e imprime la cantidad de datos completados.
 */
 void EjecutarImprimirCompletarDatos(){
     int *datos = CompletarDatosFaltantes();

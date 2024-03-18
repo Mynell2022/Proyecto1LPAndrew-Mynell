@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 /**
- * Esta es la función inicial que completa los datos faltantes.
+ * Esta es la funcion inicial que completa los datos faltantes.
  * 
  * @return Las cantidades de datos que fueron cambiados.
 */
@@ -32,7 +32,7 @@ int* CompletarDatosFaltantes(){
 }
 
 /**
- * Esta función cambia el valor de las llaves temperatura de null al de la media.
+ * Esta funcion cambia el valor de las llaves temperatura de null al de la media.
  * 
  * @param JSON El objeto JSON que contiene los datos.
 */
@@ -54,7 +54,7 @@ int ReemplazarTemperaturaFaltante(cJSON* JSON){
 }
 
 /**
- * Esta función cambia el valor de las llaves humedad de null al de la media.
+ * Esta funcion cambia el valor de las llaves humedad de null al de la media.
  * 
  * @param JSON El objeto JSON que contiene los datos.
 */
@@ -76,7 +76,7 @@ int ReemplazarHumedadFaltante(cJSON* JSON){
 }
 
 /**
- * Esta función cambia el valor de las llaves presion de null al de la media.
+ * Esta funcion cambia el valor de las llaves presion de null al de la media.
  * 
  * @param JSON El objeto JSON que contiene los datos.
 */
@@ -98,7 +98,7 @@ int ReemplazarPresionFaltante(cJSON* JSON){
 }
 
 /**
- * Esta función cambia el valor de las llaves velocidadViento de null al de la media.
+ * Esta funcion cambia el valor de las llaves velocidadViento de null al de la media.
  * 
  * @param JSON El objeto JSON que contiene los datos.
 */
@@ -120,7 +120,7 @@ int ReemplazarVelocidadVientoFaltante(cJSON* JSON){
 }
 
 /**
- * Esta función cambia el valor de las llaves precipitación de null al de la media.
+ * Esta funcion cambia el valor de las llaves precipitacion de null al de la media.
  * 
  * @param JSON El objeto JSON que contiene los datos.
 */
@@ -142,7 +142,7 @@ int ReemplazarPrecipitacionFaltante(cJSON* JSON){
 }
 
 /**
- * Esta función obtiene la media de todos los valores válidos de temperatura.
+ * Esta funcion obtiene la media de todos los valores validos de temperatura.
  * 
  * @returns La media de la temperatura
 */
@@ -159,7 +159,7 @@ float ObtenerMediaTemperatura(){
 }
 
 /**
- * Esta función obtiene la media de todos los valores válidos de humedad.
+ * Esta funcion obtiene la media de todos los valores validos de humedad.
  * 
  * @returns La media de la humedad
 */
@@ -177,7 +177,7 @@ float ObtenerMediaHumedad(){
 }
 
 /**
- * Esta función obtiene la media de todos los valores válidos de presion.
+ * Esta funcion obtiene la media de todos los valores validos de presion.
  * 
  * @returns La media de la presion
 */
@@ -194,7 +194,7 @@ float ObtenerMediaPresionAtmosferica(){
 }
 
 /**
- * Esta función obtiene la media de todos los valores válidos de velocidadViento.
+ * Esta funcion obtiene la media de todos los valores validos de velocidadViento.
  * 
  * @returns La media de la velocidad del viento
 */
@@ -211,7 +211,7 @@ float ObtenerMediaVelocidadViento(){
 }
 
 /**
- * Esta función obtiene la media de todos los valores válidos de precipitacion.
+ * Esta funcion obtiene la media de todos los valores validos de precipitacion.
  * 
  * @returns La media de la precipitacion
 */
@@ -314,7 +314,7 @@ int EliminarDatosDuplicados(){
 }
 
 /**
- * Cuenta la cantidad de elementos de un arreglo de números flotantes.
+ * Cuenta la cantidad de elementos de un arreglo de numeros flotantes.
  * 
  * @param arreglo El arreglo que se debe contar.
  * @return La cantidad de elementos.
@@ -328,7 +328,7 @@ int ContarArregloFlotante(float *arreglo){
 }
 
 /**
- * Intercambia dos elementos de posición
+ * Intercambia dos elementos de posicion
  * 
  * @param a El primer elemento.
  * @param b El segundo elemento.
@@ -462,12 +462,12 @@ float *CrearArregloPrecipitacion(){
 }
 
 /**
- * Calcula el rango de los datos típicos.
+ * Calcula el rango de los datos tipicos.
  * 
- * @param arreglo El arreglo que se utilizará para los cálculos.
+ * @param arreglo El arreglo que se utilizara para los calculos.
  * @return Un arreglo de longitud 2 con el rango.
 */
-float *CalcularRangoAtípico(float *arreglo){
+float *CalcularRangoAtipico(float *arreglo){
     int tamano = ContarArregloFlotante(arreglo);
     int indiceMediana = (tamano - 1) / 2;
     float mediana = (arreglo[indiceMediana] + arreglo[indiceMediana + 1]) / 2;
@@ -483,14 +483,14 @@ float *CalcularRangoAtípico(float *arreglo){
 }
 
 /**
- * Elimina los valores atípicos de la temperatura.
+ * Elimina los valores atipicos de la temperatura.
  * 
  * @param json El objeto JSON con los datos.
  * @return La cantidad de elementos eliminados.
 */
 int EliminarTemperaturaAtipica(cJSON *json){
     float *arregloTemperatura = CrearArregloTemperatura();
-    float *rangos = CalcularRangoAtípico(arregloTemperatura);
+    float *rangos = CalcularRangoAtipico(arregloTemperatura);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
@@ -507,14 +507,14 @@ int EliminarTemperaturaAtipica(cJSON *json){
 }
 
 /**
- * Elimina los valores atípicos de la humedad.
+ * Elimina los valores atipicos de la humedad.
  * 
  * @param json El objeto JSON con los datos.
  * @return La cantidad de elementos eliminados.
 */
 int EliminarHumedadAtipica(cJSON *json){
     float *arregloHumedad = CrearArregloHumedad();
-    float *rangos = CalcularRangoAtípico(arregloHumedad);
+    float *rangos = CalcularRangoAtipico(arregloHumedad);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
@@ -531,14 +531,14 @@ int EliminarHumedadAtipica(cJSON *json){
 }
 
 /**
- * Elimina los valores atípicos de la presión atmosférica.
+ * Elimina los valores atipicos de la presion atmosferica.
  * 
  * @param json El objeto JSON con los datos.
  * @return La cantidad de elementos eliminados.
 */
 int EliminarPresionAtipica(cJSON *json){
     float *arregloPresion = CrearArregloPresion();
-    float *rangos = CalcularRangoAtípico(arregloPresion);
+    float *rangos = CalcularRangoAtipico(arregloPresion);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
@@ -555,14 +555,14 @@ int EliminarPresionAtipica(cJSON *json){
 }
 
 /**
- * Elimina los valores atípicos de la velocidad del viento.
+ * Elimina los valores atipicos de la velocidad del viento.
  * 
  * @param json El objeto JSON con los datos.
  * @return La cantidad de elementos eliminados.
 */
 int EliminarVelocidadVientoAtipica(cJSON *json){
     float *arregloVelocidadViento = CrearArregloVelocidadTiempo();
-    float *rangos = CalcularRangoAtípico(arregloVelocidadViento);
+    float *rangos = CalcularRangoAtipico(arregloVelocidadViento);
     int tamanoJSON = cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
@@ -579,14 +579,14 @@ int EliminarVelocidadVientoAtipica(cJSON *json){
 }
 
 /**
- * Elimina los valores atípicos de la precipitación.
+ * Elimina los valores atipicos de la precipitacion.
  * 
  * @param json El objeto JSON con los datos.
  * @return La cantidad de elementos eliminados.
 */
 int EliminarPrecipitacionAtipica(cJSON *json){
     float *arregloPrecipitacion = CrearArregloPrecipitacion();
-    float *rangos = CalcularRangoAtípico(arregloPrecipitacion);
+    float *rangos = CalcularRangoAtipico(arregloPrecipitacion);
     int tamanoJSON =  cJSON_GetArraySize(json);
     int contador = 0;
     for(int indice = 0; indice < tamanoJSON; indice++){
@@ -603,9 +603,9 @@ int EliminarPrecipitacionAtipica(cJSON *json){
 }
 
 /**
- * Ejecuta todas las funciones para eliminar los valores atípicos.
+ * Ejecuta todas las funciones para eliminar los valores atipicos.
  * 
- * @return Envía la cantidad de elementos eliminados por cada dato, si no hay datos, envía NULL.
+ * @return Envia la cantidad de elementos eliminados por cada dato, si no hay datos, envia NULL.
 */
 int *EliminarValoresAtipicos(){
     if(tamanoClimas != 0){

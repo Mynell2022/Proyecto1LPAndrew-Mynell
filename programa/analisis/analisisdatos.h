@@ -1,9 +1,8 @@
+#include "../gestion/datosclimaticos.h"
 #include <time.h>
-#include <cjson/cJSON.h>
 
-char* AnalizarDatos(char* region, time_t fechaInicio, time_t fechaFin, char* dato);
-cJSON ObtenerDatosJSON();
-char* VerMedia();
-char* VerDesviacionEstandar();
-char* VerModa();
-char* VerMediana();
+float* AnalizarDatos(char*, time_t, time_t, int);
+float ObtenerMedia(float*,int);
+float ObtenerDesviacionEstandar(float*,int);
+float ObtenerModa(float*,int);
+float ObtenerMediana(float*,int);
