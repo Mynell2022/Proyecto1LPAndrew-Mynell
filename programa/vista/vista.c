@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <math.h>
 
 #include "../gestion/gestionregiones.h"
 #include "../gestion/gestionregiones.c"
@@ -11,6 +12,9 @@
 #include "../procesamiento/procesamientodatos.c"
 #include "../procesamiento/busquedadatos.h"
 #include "../procesamiento/busquedadatos.c"
+#include "../visualizacion/visualizaciondatos.h"
+#include "../visualizacion/visualizaciondatos.c"
+#include "../structs/datosvisualizador.h"
 #include "../analisis/analisisdatos.h"
 #include "../analisis/analisisdatos.c"
 
@@ -27,7 +31,7 @@ float LeerFlotante(){
     int resultado = scanf("%f", &entrada);
     LimpiarBuffer();
     if(resultado < 0){
-        return -1.0;
+        return NAN;
     }
     return entrada;
 }
@@ -181,6 +185,50 @@ void EjecutarMenuAnalisisDatos(){
     printf("Mediana: %f",ObtenerMediana(analisis,sizeof(analisis)/sizeof(analisis[0])));
 }
 
+void EjecutarImprimirRangoVarianza(){
+    printf("\n****Mostrando Varianza y Rango de un Región*****\nEscriba la posición X: ");
+    float posicionX = LeerFlotante();
+    if(isnan(posicionX)){
+        printf("\n***El dato escrito no es correcto***\n\n");
+        return;
+    }
+    printf("Escriba la posición Y: ");
+    float posicionY = LeerFlotante();
+    if(isnan(posicionY)){
+        printf("\n***El dato escrito no es correcto***\n\n");
+    }
+    DatosVisualizador datos = VisualizarDatos(posicionX, posicionY);
+    if(datos.RangoTemperatura != NULL)
+        printf("\nTemperatura\n\tVarianza: %.4f\n\tRango: [%.4f, %.4f]",
+            datos.VarianzaTemperatura, datos.RangoTemperatura[0], datos.RangoTemperatura[1]);
+    else
+        printf("\nNo hay datos que mostrar para la temperatura.");
+    if(datos.RangoHumedad != NULL)
+        printf("\nHumedad\n\tVarianza: %.4f\n\tRango: [%.4f, %.4f]",
+            datos.VarianzaHumedad, datos.RangoHumedad[0], datos.RangoHumedad[1]);
+    else
+        printf("\nNo hay datos que mostrar para la humedad");
+    if(datos.RangoPresion != NULL)
+        printf("\nPresion atmosférica\n\tVarianza: %.4f\n\tRango: [%.4f, %.4f]",
+            datos.VarianzaPresion, datos.RangoPresion[0], datos.RangoPresion[1]);
+    else
+        printf("\nNo hay datos que mostra para la presión atmosférica");
+    if(datos.RangoVelocidadViento != NULL)
+        printf("\nVelocidad del viento\n\tVarianza: %.4f\n\tRango: [%.4f, %.4f]",
+            datos.VarianzaVelocidadViento, datos.RangoVelocidadViento[0], datos.RangoVelocidadViento[1]);
+    else
+        printf("\nNo hay datos que mostrar para la velocidad del viento");
+    if(datos.RangoPrecipitacion != NULL)
+        printf("\nPrecipitación\n\tVarianza: %.4f\n\tRango: [%.4f, %.4f]",
+            datos.VarianzaPrecipitacion, datos.RangoPrecipitacion[0], datos.RangoPrecipitacion[1]);
+    else
+        printf("\nNo hay datos que mostrar para la velocidad del viento");
+    printf("\n\n");
+}
+
+/**
+ * Ejecuta el menú que imprime la cantidad de datos atípicos eliminados.
+*/
 void EjecutarImprimirEliminarValoresAtipicos(){
     int *datos = EliminarValoresAtipicos();
     if(datos != NULL){
@@ -413,13 +461,13 @@ void SolicitarDatosRegion(){
     }
     printf("Ingrese la coordenada X de la region: ");
     float x = LeerFlotante();
-    if(x == -1){
+    if(isnan(x)){
         printf("\n***El numero no es valido***\n\n");
         return;
     }
     printf("Ingrese la coordenada y de la region: ");
     float y = LeerFlotante();
-    if(y == -1){
+    if(isnan(y)){
         printf("\n***El numero no es valido***\n\n");
         return;
     }
@@ -505,6 +553,7 @@ void EjecutarMenuPrincipal(){
         case 5:
             break;
         case 6:
+            EjecutarImprimirRangoVarianza();
             break;
         case 7:
             SolicitarDatosBusqueda();
