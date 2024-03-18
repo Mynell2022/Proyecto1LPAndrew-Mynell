@@ -76,6 +76,10 @@ void ImprimirEstadisticas(){
     TopMesAnio(5);
 }
 
+
+/// @brief Según el número da un opción
+/// @param opcion La opción ingresada por el usuario.
+/// @return La opción seleccionada.
 char *DarOpcion(int opcion){
     switch (opcion){
     case 1:
