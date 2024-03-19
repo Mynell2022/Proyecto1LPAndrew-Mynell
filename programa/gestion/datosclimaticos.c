@@ -236,7 +236,7 @@ void CargarDatosClimatologicos(){
  * Se envia la informacion total del clima.
 */
 char* ToString(Clima* clima){
-    if(!isnan(clima->ID)){
+    if(clima->ID){
         char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
         texto[0]='\0';
         char aux[10];

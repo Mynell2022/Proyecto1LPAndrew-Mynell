@@ -218,12 +218,12 @@ void EjecutarMenuAnalisisDatos(){
         return;
     }
     struct tm fechaInicial = {0};
-    fechaInicial.tm_year = anioInicial;
-    fechaInicial.tm_mon = mesInicial;
+    fechaInicial.tm_year = anioInicial - 1900;
+    fechaInicial.tm_mon = mesInicial - 1;
     fechaInicial.tm_mday = diaInicial;
     struct tm fechaFinal = {0};
-    fechaFinal.tm_year = anioFinal;
-    fechaFinal.tm_mon = mesFinal;
+    fechaFinal.tm_year = anioFinal - 1900;
+    fechaFinal.tm_mon = mesFinal - 1;
     fechaFinal.tm_mday = diaFinal;
     time_t inicial = mktime(&fechaInicial);
     time_t final = mktime(&fechaFinal);
