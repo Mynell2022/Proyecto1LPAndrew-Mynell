@@ -4,7 +4,9 @@ float* AnalizarDatos(char* region, time_t fechaInicio, time_t fechaFin, int dato
     float* valores= (float*)malloc(tamanoClimas*sizeof(float));
     for (int i = 0; i < tamanoClimas; i++) {
         time_t tiempo= climas[i].Tiempo;
-        if (tiempo >= fechaInicio && tiempo <= fechaFin &&
+        double diff_inicio = difftime(tiempo, fechaInicio);
+        double diff_fin = difftime(fechaFin, tiempo);
+        if (diff_inicio >= 0 && diff_fin >= 0 &&
             ((strcmp(region, "ALL") != 0 && strcmp(climas[i].Region, region) == 0) || (strcmp(region, "ALL") == 0))) {
             switch (dato) {
                 case 0:
