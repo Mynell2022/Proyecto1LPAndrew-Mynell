@@ -225,17 +225,20 @@ void EjecutarMenuAnalisisDatos(){
     fechaFinal.tm_year = anioFinal;
     fechaFinal.tm_mon = mesFinal;
     fechaFinal.tm_mday = diaFinal;
+    time_t inicial = mktime(&fechaInicial);
+    time_t final = mktime(&fechaFinal);
     printf("\n(0) Temperatura, (1) Humedad, (2) Presion, (3) Velocidad de Viento, (4) Precipitacion\nIngrese el dato que desea analizar: ");
     int dato = LeerEntero();
     if(dato < 0 || dato > 4){
         printf("\nOpcion desconocida");
         return;
     }
-    float* analisis=AnalizarDatos(region,mktime(&fechaInicial),mktime(&fechaFinal),dato);
-    printf("Media(Promedio): %f",ObtenerMedia(analisis,sizeof(analisis)/sizeof(analisis[0])));
-    printf("Desviacion estandar: %f",ObtenerDesviacionEstandar(analisis,sizeof(analisis)/sizeof(analisis[0])));
-    printf("Moda: %f",ObtenerModa(analisis,sizeof(analisis)/sizeof(analisis[0])));
-    printf("Mediana: %f",ObtenerMediana(analisis,sizeof(analisis)/sizeof(analisis[0])));
+    int tam=0;
+    float* analisis=AnalizarDatos(region,inicial,final,dato,&tam);
+    printf("\nMedia(Promedio): %f",ObtenerMedia(analisis,tam));
+    printf("\nDesviacion estandar: %f",ObtenerDesviacionEstandar(analisis,tam));
+    printf("\nModa: %f",ObtenerModa(analisis,tam));
+    printf("\nMediana: %f\n",ObtenerMediana(analisis,tam));
 }
 
 void EjecutarImprimirRangoVarianza(){

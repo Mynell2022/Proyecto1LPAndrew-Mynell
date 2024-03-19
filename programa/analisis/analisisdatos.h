@@ -3,7 +3,7 @@
 #ifndef ANALISISDATOS_H
 #define ANALISISDATOS_H
 
-float* AnalizarDatos(char*, time_t, time_t, int);
+float* AnalizarDatos(char*, struct tm, struct tm, int,int*);
 float ObtenerMedia(float*,int);
 float ObtenerDesviacionEstandar(float*,int);
 float ObtenerModa(float*,int);

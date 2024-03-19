@@ -1,29 +1,29 @@
 #include "analisisdatos.h"
 
-float* AnalizarDatos(char* region, time_t fechaInicio, time_t fechaFin, int dato){
+float* AnalizarDatos(char* region, time_t fechaInicio, time_t fechaFin, int dato, int* index){
     float* valores= (float*)malloc(tamanoClimas*sizeof(float));
-    int index=0;
-    for(int i=0; i<tamanoClimas;i++){
-        if(climas[i].Tiempo>=fechaInicio&&climas[i].Tiempo<=fechaFin&&((region!="ALL"&&climas[i].Region==region)||(region=="ALL"))){
-            switch(dato){
+    for (int i = 0; i < tamanoClimas; i++) {
+        if (climas[i].Tiempo >= fechaInicio && climas[i].Tiempo <= fechaFin &&
+            ((strcmp(region, "ALL") != 0 && strcmp(climas[i].Region, region) == 0) || (strcmp(region, "ALL") == 0))) {
+            switch (dato) {
                 case 0:
-                    valores[index++]=climas[i].Temperatura;
+                    if(!isnan(climas[i].Temperatura))valores[(*index)++] = climas[i].Temperatura;
                     break;
                 case 1:
-                    valores[index++]=climas[i].Humedad;
+                    if(!isnan(climas[i].Humedad))valores[(*index)++] = climas[i].Humedad;
                     break;
                 case 2:
-                    valores[index++]=climas[i].Presion;
+                    if(!isnan(climas[i].Presion))valores[(*index)++] = climas[i].Presion;
                     break;
                 case 3:
-                    valores[index++]=climas[i].VelocidadViento;
+                    if(!isnan(climas[i].VelocidadViento))valores[(*index)++] = climas[i].VelocidadViento;
                     break;
                 case 4:
-                    valores[index++]=climas[i].Precipitacion;
+                    if(!isnan(climas[i].Precipitacion))valores[(*index)++] = climas[i].Precipitacion;
                     break;
             }
         }
-    }valores= realloc(valores,index*sizeof(float));
+    }
     return valores;
 }
 float ObtenerMedia(float* datos,int tam){
