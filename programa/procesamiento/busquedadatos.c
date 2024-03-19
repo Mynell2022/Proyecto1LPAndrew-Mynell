@@ -9,7 +9,11 @@ char* Buscar(int* lista, int* index){
     texto[0]='\0';
     if((*index) == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < (*index); i++) {
-        strcat(texto,ToString(&climas[lista[i]]));
+        if(lista[i]<tamanoClimas){
+            char* aux= ToString(&climas[lista[i]]);
+            strcat(texto,aux);
+            free(aux);
+        }
     }return texto;
 }
 

@@ -236,34 +236,37 @@ void CargarDatosClimatologicos(){
  * Se envia la informacion total del clima.
 */
 char* ToString(Clima* clima){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
-    texto[0]='\0';
-    char aux[10];
-    strcat(texto,"ID: ");
-    sprintf(aux,"%d",clima->ID);
-    strcat(texto,aux);
-    strcat(texto,"\nRegion: ");
-    strcat(texto,clima->Region);
-    strcat(texto,"\nTiempo: ");
-    strftime(aux,sizeof(aux),"%c", localtime(&clima->Tiempo));
-    strcat(texto,aux);
-    strcat(texto,"\nTemperatura: ");
-    sprintf(aux,"%.2f",clima->Temperatura);
-    strcat(texto,aux);
-    strcat(texto,"\nHumedad: ");
-    sprintf(aux,"%.2f",clima->Humedad);
-    strcat(texto,aux);
-    strcat(texto,"\nPresion: ");
-    sprintf(aux,"%.2f",clima->Presion);
-    strcat(texto,aux);
-    strcat(texto,"\nVelocidad del Viento: ");
-    sprintf(aux,"%.2f",clima->VelocidadViento);
-    strcat(texto,aux);
-    strcat(texto,"\nDireccion del Viento: ");
-    strcat(texto,clima->DireccionViento);
-    strcat(texto,"\nPrecipitacion: ");
-    sprintf(aux,"%.2f",clima->Precipitacion);
-    strcat(texto,aux);
-    strcat(texto,"\n ~+~\n\n");
-    return texto;
+    if(!isnan(clima->ID)){
+        char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
+        texto[0]='\0';
+        char aux[10];
+        strcat(texto,"ID: ");
+        sprintf(aux,"%d",clima->ID);
+        strcat(texto,aux);
+        strcat(texto,"\nRegion: ");
+        strcat(texto,clima->Region);
+        strcat(texto,"\nTiempo: ");
+        strftime(aux,sizeof(aux),"%c", localtime(&clima->Tiempo));
+        strcat(texto,aux);
+        strcat(texto,"\nTemperatura: ");
+        sprintf(aux,"%.2f",clima->Temperatura);
+        strcat(texto,aux);
+        strcat(texto,"\nHumedad: ");
+        sprintf(aux,"%.2f",clima->Humedad);
+        strcat(texto,aux);
+        strcat(texto,"\nPresion: ");
+        sprintf(aux,"%.2f",clima->Presion);
+        strcat(texto,aux);
+        strcat(texto,"\nVelocidad del Viento: ");
+        sprintf(aux,"%.2f",clima->VelocidadViento);
+        strcat(texto,aux);
+        strcat(texto,"\nDireccion del Viento: ");
+        strcat(texto,clima->DireccionViento);
+        strcat(texto,"\nPrecipitacion: ");
+        sprintf(aux,"%.2f",clima->Precipitacion);
+        strcat(texto,aux);
+        strcat(texto,"\n ~+~\n\n");
+        return texto;
+    }
+    return "";
 }
