@@ -4,8 +4,13 @@
 #include "../gestion/gestionregiones.h"
 #include "../gestion/datosclimaticos.h"
 
+
+/// @brief Transforma los datos recopilados en texto
+/// @param lista Lista de datos con indices
+/// @param index Tamano de la lista
+/// @return Texto con datos
 char* Buscar(int* lista, int* index){
-    char* texto= (char*)malloc(tamanoClimas*100*sizeof(char));
+    char* texto= (char*)malloc(tamanoClimas*500*sizeof(char));
     texto[0]='\0';
     if((*index) == 0){return "\nNo hay datos que mostrar\n\n";}
     for (int i = 0; i < (*index); i++) {
@@ -17,6 +22,10 @@ char* Buscar(int* lista, int* index){
     }return texto;
 }
 
+/// @brief Busca los indices de la Regiones Exactamente iguales a la region
+/// @param region Region a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorRegionExacta(char *region,int *lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(strcmp(climas[i].Region,region)==0){
@@ -25,6 +34,10 @@ void BuscarPorRegionExacta(char *region,int *lista, int* index){
     }
 }
 
+/// @brief Busca los indices de la Regiones aproximadamente iguales a la region
+/// @param region Region a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorRegionAprox(char* region,int* lista, int* index){
     int mejorIndice=0;
     float mejorDistancia=__FLT_MAX__,distancia;
@@ -40,6 +53,10 @@ void BuscarPorRegionAprox(char* region,int* lista, int* index){
     }lista[(*index)++]=mejorIndice;
 }
 
+/// @brief Busca los indices con la temperatura Exactamente igual a la temperatura a buscar
+/// @param temperatura Temperatura a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorTemperaturaExacta(float temperatura,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Temperatura==temperatura){
@@ -48,6 +65,10 @@ void BuscarPorTemperaturaExacta(float temperatura,int* lista, int* index){
     }
 }
 
+/// @brief Busca los indices con la temperatura aproximadamente igual a la temperatura a buscar
+/// @param temperatura Temperatura a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorTemperaturaAprox(float temperatura,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
@@ -60,6 +81,10 @@ void BuscarPorTemperaturaAprox(float temperatura,int* lista, int* index){
     }lista[(*index)++]=mejorIndice;
 }
 
+/// @brief Busca los indices con la Direccion de Viento Exactamente igual a la Direccion de Viento a buscar
+/// @param dViento Direccion de Viento a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorDireccionVientoExacta(char* dViento,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(strcmp(climas[i].DireccionViento,dViento)){
@@ -68,6 +93,10 @@ void BuscarPorDireccionVientoExacta(char* dViento,int* lista, int* index){
     }
 }
 
+/// @brief Busca los indices con la Direccion de Viento aproximadamente igual a la Direccion de Viento a buscar
+/// @param dViento Direccion de Viento a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorDireccionVientoAprox(char* dViento,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(strpbrk(climas[i].DireccionViento,dViento)!=NULL){
@@ -76,6 +105,10 @@ void BuscarPorDireccionVientoAprox(char* dViento,int* lista, int* index){
     }
 }
 
+/// @brief Busca los indices con la presion Exactamente igual a la presion a buscar
+/// @param presion presion a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorPresionExacta(float presion, int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Presion==presion){
@@ -84,6 +117,10 @@ void BuscarPorPresionExacta(float presion, int* lista, int* index){
     }
 }
 
+/// @brief Busca los indices con la presion aproximadamente igual a la presion a buscar
+/// @param presion presion a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorPresionAprox(float presion,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
@@ -96,6 +133,10 @@ void BuscarPorPresionAprox(float presion,int* lista, int* index){
     }lista[(*index)++]=mejorIndice;
 }
 
+/// @brief Busca los indices con la precipitacion exactamente igual a la precipitacion a buscar
+/// @param precipitacion precipitacion a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorPrecipitacionExacta(float precipitacion,int* lista, int* index){
     for (int i = 0; i < tamanoClimas; i++) {
         if(climas[i].Precipitacion==precipitacion){
@@ -104,6 +145,10 @@ void BuscarPorPrecipitacionExacta(float precipitacion,int* lista, int* index){
     }
 }
 
+/// @brief Busca los indices con la precipitacion aproximadamente igual a la precipitacion a buscar
+/// @param precipitacion precipitacion a Buscar
+/// @param lista Lista de indices
+/// @param index Tamano de lista
 void BuscarPorPrecipitacionAprox(float precipitacion,int* lista, int* index){
     int mejorIndice=0;
     float mejorCerca=__FLT_MAX__,cerca;
@@ -116,6 +161,11 @@ void BuscarPorPrecipitacionAprox(float precipitacion,int* lista, int* index){
     }lista[(*index)++]=mejorIndice;
 }
 
+/// @brief Elimina los elemento del arreglo 1 que no tenga el arreglo 2
+/// @param arreglo1 arreglo principal
+/// @param arreglo1 arreglo secundario
+/// @param longitud1 largo de arreglo principal
+/// @param longitud2 largo de arreglo secundario
 int* ProcesarBusqueda(int* arreglo1,int* arreglo2, int* longitud1, int* longitud2) {
     int* arregloInterseccion = NULL;
     int longitudInterseccion = 0;
@@ -136,6 +186,9 @@ int* ProcesarBusqueda(int* arreglo1,int* arreglo2, int* longitud1, int* longitud
     return arregloInterseccion;
 }
 
+/// @brief Elimina los elementos duplicados de la lista
+/// @param lista lista a tratar
+/// @param largo Largo de la lista
 int* EliminarBusquedasDuplicadas(int* lista, int largo){
     int* nuevo = (int*)malloc(largo * sizeof(int));
     int indice = 0;

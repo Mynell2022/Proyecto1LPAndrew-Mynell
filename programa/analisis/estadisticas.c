@@ -1,23 +1,36 @@
 #include "estadisticas.h"
 
+/// @brief Compara la precipitacion de dos climas y decide cual es menor o mayor
+/// @param a Primer clima
+/// @param fechaDos Segundo clima
+/// @return Numero entre 1 y -1
 int SortPrecipitacion(const void *a, const void *b) {
     const Clima *pa = (const Clima *)a;
     const Clima *pb = (const Clima *)b;
     return (pb->Precipitacion - pa->Precipitacion);
 }
 
+/// @brief Compara la Velocidad del Viento de dos climas y decide cual es menor o mayor
+/// @param a Primer clima
+/// @param fechaDos Segundo clima
+/// @return Numero entre 1 y -1
 int SortVelocidadViento(const void *a, const void *b) {
     const Clima *pa = (const Clima *)a;
     const Clima *pb = (const Clima *)b;
     return (pb->VelocidadViento - pa->VelocidadViento);
 }
 
+/// @brief Obtiene el mes y anio de un tiempo
+/// @param tiempo Tiempo a extraer datos
+/// @param mes variable donde guardar mes
+/// @param anio variable donde guardar anio
 void ObtenerMesAnio(const time_t tiempo, int *mes, int *anio) {
-    struct tm *fecha_desglosada = localtime(&tiempo);
-    *mes = fecha_desglosada->tm_mon + 1;
-    *anio = fecha_desglosada->tm_year + 1900;
+    struct tm fecha_desglosada = *localtime(&tiempo);
+    *mes = fecha_desglosada.tm_mon + 1;
+    *anio = fecha_desglosada.tm_year + 1900;
 }
 
+/* Muestra el Top de Zonas con mayor Precipitacion*/
 void TopPrecipitacion(int n) {
     printf("Top %d de zonas con mayor precipitación:\n", n);
     qsort(climas, tamanoClimas, sizeof(Clima), SortPrecipitacion);
@@ -27,6 +40,7 @@ void TopPrecipitacion(int n) {
     printf("\n");
 }
 
+/* Muestra el Top de Zonas con mayor Velocidad de Viento*/
 void TopVelocidadViento(int n) {
     printf("Top %d de registros con mayor velocidad del viento:\n", n);
     qsort(climas, tamanoClimas, sizeof(Clima), SortVelocidadViento);
@@ -35,6 +49,7 @@ void TopVelocidadViento(int n) {
     }printf("\n");
 }
 
+/* Muestra el Top de Fechas con mas cantidad de registros*/
 void TopMesAnio(int n) {
     printf("Top %d de mes-año con mayor cantidad de registros:\n", n);
     int registros_por_mes_y_anio[13][3000] = {0};

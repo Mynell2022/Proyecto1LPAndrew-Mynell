@@ -69,7 +69,7 @@ char *LeerString(){
     return entrada;
 }
 
-
+/* Imprime las estadisticas Top de los datos*/
 void ImprimirEstadisticas(){
     printf("\nEstadisticas:\n");
     TopPrecipitacion(3);
