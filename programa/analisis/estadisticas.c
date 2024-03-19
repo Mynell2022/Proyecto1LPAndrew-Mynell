@@ -56,7 +56,7 @@ void TopMesAnio(int n) {
     for (int i = 0; i < tamanoClimas; i++) {
         int mes, anio;
         ObtenerMesAnio(climas[i].Tiempo, &mes, &anio);
-        registros_por_mes_y_anio[climas[i].Tiempo][anio]++;
+        registros_por_mes_y_anio[mes][anio]++;
     }for (int i = 0; i < n; i++) {
         int max_registros = 0,mes_max = 0,anio_max = 0;
         for (int mes = 1; mes <= 12; mes++) {
